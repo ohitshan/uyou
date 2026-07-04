@@ -17,9 +17,9 @@ export async function GET() {
 
     browser = await puppeteer.launch({
       args: isMac ? [] : chromium.args,
-      defaultViewport: isMac ? null : chromium.defaultViewport,
+      defaultViewport: isMac ? null : (chromium as any).defaultViewport,
       executablePath: executablePath,
-      headless: isMac ? 'new' : chromium.headless,
+      headless: isMac ? 'new' : (chromium as any).headless,
     });
 
     const page = await browser.newPage();
