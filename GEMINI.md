@@ -44,3 +44,10 @@
 - **린트:** ESLint
 - **패키지 매니저:** pnpm
 - **레이아웃:** 모든 페이지의 최대 너비(max-width)는 1920px로 제한하며, 화면 중앙에 정렬합니다. (RootLayout에서 적용)
+
+## 디자인 가이드라인
+- 모든 간격(margin, padding) 및 크기(width, height)는 4px 또는 6px의 배수를 사용하여 일관성을 유지합니다.
+
+## 관련 문서
+* **디자인 사양:** `docs/design/main-page.md`
+* **앱 디렉토리 지침:** `app/GEMINI.md`
