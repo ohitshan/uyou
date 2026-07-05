@@ -31,6 +31,9 @@ export default function RootLayout({
       lang="en"
       className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
     >
+      <head>
+        <meta name="google-site-verification" content="5Kd9F0hFIE35jbYCu_pvvTGGNWIyAd07nbBnoEC5g0U" />
+      </head>
       <body className="min-h-full flex flex-col">
         <Providers>
           <div className="w-full max-w-[1920px] mx-auto">
