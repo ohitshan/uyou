@@ -1,11 +1,30 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 
-export async function POST() {
+function isAuthorizedRequest(request: Request): boolean {
+  const adminSecret = process.env.ADMIN_API_SECRET;
+  if (!adminSecret) {
+    return true;
+  }
+
+  const authorizationHeader = request.headers.get('authorization');
+  if (!authorizationHeader) {
+    return false;
+  }
+
+  const [scheme, token] = authorizationHeader.split(' ');
+  return scheme.toLowerCase() === 'bearer' && token === adminSecret;
+}
+
+export async function POST(request: Request) {
+  if (!isAuthorizedRequest(request)) {
+    return NextResponse.json({ error: 'Unauthorized request' }, { status: 401 });
+  }
+
   const { error } = await supabase
     .from('university_info')
     .delete()
-    .neq('university_name', 'non_existent_university'); // Delete everything by using a condition that matches all
+    .not('id', 'is', null);
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

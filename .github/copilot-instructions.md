@@ -14,15 +14,17 @@
 ## 아키텍처 개요
 - **기본 구조**: Next.js App Router(`app/`) + TypeScript + Tailwind CSS v4 + shadcn/ui 조합입니다.
 - **데이터 저장소**: Supabase `public.university_info` 테이블(`schema.sql`)에 크롤링 게시글을 저장하며, `url`이 고유키(UNIQUE)입니다.
+- **저장 컬럼**: 기본 게시글 필드 외에 `posted_at`(작성일) 컬럼을 사용해 정렬 정확도를 높입니다.
 - **메인 페이지 흐름**:
   - `app/page.tsx`는 ISR(`revalidate = 3600`)을 사용하는 Server Component입니다.
   - Supabase에서 `university_name` 목록을 조회해 `components/UniversityListContent.tsx`로 전달합니다.
   - `UniversityListContent`는 Client Component이며, 대학 카드를 `/detail/[university_id]` 링크로 렌더링합니다.
 - **API 계층** (`app/api/*`):
-  - `/api/scrape`: Puppeteer 기반 크롤러. macOS에서는 로컬 Chrome, 그 외 환경에서는 `@sparticuz/chromium` 사용. 가천대 OIA 페이지를 수집해 Supabase에 적재합니다.
-  - `/api/universities`: `university_info` 전체 조회 후 `content` 문자열에서 날짜를 추출해 정렬합니다.
+  - `/api/scrape`: Puppeteer 기반 크롤러. macOS에서는 로컬 Chrome, 그 외 환경에서는 `@sparticuz/chromium` 사용. 가천대 OIA 페이지를 수집하고 `url` 기준 upsert로 Supabase에 적재합니다. `CRON_SECRET` 설정 시 인증 헤더를 검사합니다.
+  - `/api/universities`: `posted_at` → `created_at` 순서로 DB 정렬해 반환합니다.
+  - `/api/university-list`: 대학명 목록 API. `created_at` 최신순 기준으로 중복 제거한 대학명 리스트를 반환합니다.
   - `/api/count`: `university_info` 전체 건수 반환.
-  - `/api/clear`: `university_info` 데이터 전체 삭제.
+  - `/api/clear`: `university_info` 데이터 전체 삭제. `ADMIN_API_SECRET` 설정 시 인증 헤더를 검사합니다.
 - **주기 실행**: `vercel.json`의 cron 설정으로 `/api/scrape`를 주기 호출합니다.
 - **클라이언트 데이터 계층**:
   - `components/providers.tsx`에서 React Query Provider를 전역 적용합니다.
@@ -36,5 +38,6 @@
 - **디자인 기준 문서**: `docs/design/main-page.md`, `DESIGN.md`를 우선 기준으로 따릅니다.
 - **앱 디렉토리 규칙**: `app/GEMINI.md`의 지침(반응형, Tailwind 기반 UI, 일관된 간격)을 준수합니다.
 - **경로 별칭**: `tsconfig.json`의 `@/*` 별칭 import를 우선 사용합니다.
-- **Supabase 환경변수**: `lib/supabase.ts`에서 `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`를 사용합니다.
+- **Supabase 환경변수**: `lib/supabase.ts`에서 `NEXT_PUBLIC_SUPABASE_URL`을 필수로 사용하고, 키는 `SUPABASE_SERVICE_ROLE_KEY` 우선, 없으면 `NEXT_PUBLIC_SUPABASE_ANON_KEY`를 사용합니다.
+- **크론 시간대 규칙**: Vercel cron은 UTC 기준이므로 KST 스케줄은 UTC로 환산해 설정합니다(예: KST 02:00 = UTC 17:00).
 - **스타일링 구성**: `app/globals.css`에서 Tailwind v4 + `tw-animate-css` + shadcn 스타일 import를 통합 관리합니다.

@@ -4,5 +4,6 @@ export interface UniversityInfo {
   title: string;
   content: string;
   url: string;
+  posted_at: string | null;
   created_at: string;
 }

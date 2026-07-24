@@ -27,11 +27,20 @@
 * **수집 방식 (Data Ingestion)**
   - Next.js API Routes 또는 별도의 Cron Job 스크립트를 사용하여 대학 공지사항 게시판을 주기적으로 파싱(Scraping)합니다.
   - 보안 및 봇 차단 우회를 위해 헤드리스 브라우저 환경(Puppeteer 또는 Playwright)이나 경량 크롤러 라이브러리(Cheerio)를 백엔드 단에서 활용합니다.
+  - 크롤링 적재 시 `url` 고유키 기준으로 **upsert**하여 중복 수집 오류를 줄입니다.
 * **업데이트 주기 (Sync Schedule)**
   - 대학별 학사 일정 및 어학원 공지 빈도를 고려하여 **매일 새벽 2시(KST)**에 크롤링 스크립트를 실행해 데이터베이스를 갱신합니다.
+  - Vercel cron은 UTC 기준이므로 `17:00 UTC`(= KST 02:00)에 `/api/scrape`를 호출합니다.
 * **데이터 관리 방식**
-  - 게시판의 고유 글 번호, URL, 제목, 작성일, 본문 텍스트를 구조화하여 저장합니다.
+  - 게시판의 고유 글 번호, URL, 제목, 작성일(`posted_at`), 본문 텍스트를 구조화하여 저장합니다.
   - 중복 수집을 방지하기 위해 게시글 URL 또는 고유 ID를 고유키(Unique Key)로 검증합니다.
+  - 게시글 정렬은 본문 문자열 파싱 대신 DB 컬럼(`posted_at`, `created_at`) 정렬을 우선 사용합니다.
+
+## 5. 운영 보안 기준
+* 쓰기성 API는 토큰 기반 보호를 적용합니다.
+  - `/api/scrape`: `CRON_SECRET`가 설정된 경우 Bearer Authorization 헤더가 일치하는 요청만 허용
+  - `/api/clear`: `ADMIN_API_SECRET`가 설정된 경우 Bearer Authorization 헤더가 일치하는 요청만 허용
+* 서버에서는 `SUPABASE_SERVICE_ROLE_KEY` 사용을 우선하고, 없을 때만 anon key를 fallback으로 사용합니다.
 
 ## 빌드 및 실행
 
