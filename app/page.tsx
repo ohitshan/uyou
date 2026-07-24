@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
-import { supabase } from '@/lib/supabase';
-import HomePageContent from '@/components/HomePageContent';
+import UniversityListContent from '@/components/UniversityListContent';
 
 export const revalidate = 3600; // ISR: 1시간마다 재생성
 
@@ -15,10 +14,5 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const { data: universities } = await supabase
-    .from('university_info')
-    .select('*')
-    .order('created_at', { ascending: false });
-
-  return <HomePageContent initialUniversities={universities || []} />;
+  return <UniversityListContent />;
 }
