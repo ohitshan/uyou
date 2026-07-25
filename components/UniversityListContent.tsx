@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useUniversityNames } from '@/hooks/useUniversityNames';
 import { Button } from '@/components/ui/button';
+import { UniversityCard } from './university-card';
 
 export default function UniversityListContent() {
   const { data: universities, isLoading, isError } = useUniversityNames();
@@ -17,6 +18,7 @@ export default function UniversityListContent() {
             <Button size="lg" variant="secondary" type="button">
               문의하기
             </Button>
+<Button variant="secondary" size="sm">취소</Button>
           </div>
         </div>
 
@@ -25,6 +27,7 @@ export default function UniversityListContent() {
           <span className="text-sm text-gray-500">{universities?.length ?? 0}개</span>
         </div>
 
+            <Button variant="primary" size="md">저장하기</Button>
         {isLoading ? (
           <div className="rounded-2xl border border-gray-200 bg-white p-12 text-center text-gray-500">
             대학 리스트를 불러오는 중입니다.
@@ -36,12 +39,12 @@ export default function UniversityListContent() {
         ) : (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {universities?.map((university) => (
-              <article
+              <UniversityCard
                 key={university}
-                className="rounded-3xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-lg"
-              >
-                <h3 className="text-xl font-bold text-gray-900">{university}</h3>
-              </article>
+                name={university}
+                region="지역 정보"
+                logoUrl="/logo.png"
+              />
             ))}
           </div>
         )}
