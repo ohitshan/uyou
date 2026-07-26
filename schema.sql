@@ -1,15 +1,29 @@
 -- schema.sql
 -- Run this script in your Supabase SQL Editor (https://supabase.com/dashboard) to set up the database tables and policies.
 
--- 1. Create university_info table
-CREATE TABLE IF NOT EXISTS public.university_info (
+CREATE TABLE IF NOT EXISTS public.universities (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    university_name TEXT NOT NULL,
-    title TEXT NOT NULL,
-    content TEXT NOT NULL,
-    url TEXT NOT NULL UNIQUE,
-    posted_at DATE,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+    name TEXT NOT NULL,
+    slug TEXT NOT NULL UNIQUE,
+
+    logo_path TEXT,
+    banner_path TEXT,
+
+    site_url TEXT NOT NULL,
+
+    region TEXT NOT NULL,
+
+    address TEXT,
+
+    description TEXT,
+
+    is_active BOOLEAN NOT NULL DEFAULT true,
+
+    display_order INTEGER NOT NULL DEFAULT 0
 );
 
 -- Optional migration for existing tables (run safely if columns/indexes already exist)

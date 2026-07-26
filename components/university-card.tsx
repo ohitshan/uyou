@@ -14,18 +14,20 @@ export function UniversityCard({
   href,
 }: UniversityCardProps) {
   const Card = (
-    <div className="flex items-center gap-4 rounded-lg border border-border bg-surface p-5 shadow-sm transition-shadow hover:shadow-md">
-      <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-background">
+    <div className="overflow-hidden rounded-lg border border-border bg-surface shadow-sm transition-shadow hover:shadow-md">
+      {/* 로고 영역 - 메인으로 크게 */}
+      <div className="flex h-36 items-center justify-center bg-background p-6">
         <Image
           src={logoUrl}
           alt={`${name} 로고`}
-          width={56}
-          height={56}
+          width={120}
+          height={120}
           className="h-full w-full object-contain"
         />
       </div>
 
-      <div className="min-w-0 flex-1">
+      {/* 텍스트 영역 */}
+      <div className="border-t border-border p-5">
         <h3 className="truncate text-lg font-semibold text-text-primary">
           {name}
         </h3>
