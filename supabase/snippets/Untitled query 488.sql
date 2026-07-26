@@ -1,2 +1,1 @@
-grant usage on schema public to anon, authenticated;
-grant select on universities to anon, authenticated;
+select id, name, slug from universities where slug = 'gachon-university';

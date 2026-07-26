@@ -1,26 +1,10 @@
-import { NextResponse } from 'next/server';
-import puppeteer from 'puppeteer-core';
-import chromium from '@sparticuz/chromium';
-import { supabase } from '@/lib/supabase';
-import os from 'os';
-
-interface ScrapedPost {
-  title: string;
-  content: string;
-  url: string;
-}
-
-function normalizeDate(dateText: string): string | null {
-  const match = dateText.match(/(\d{4})[./-](\d{1,2})[./-](\d{1,2})/);
-  if (!match) {
-    return null;
-  }
-
-  const year = match[1];
-  const month = match[2].padStart(2, '0');
-  const day = match[3].padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
+import { NextResponse } from "next/server";
+import puppeteer from "puppeteer-core";
+import chromium from "@sparticuz/chromium";
+import os from "os";
+import { supabaseAdmin } from "@/lib/supabase-admin";
+import { scrapers } from "@/lib/scrapers/registry";
+import { revalidatePath } from "next/cache";
 
 function isAuthorizedRequest(request: Request): boolean {
   const cronSecret = process.env.CRON_SECRET;
@@ -28,28 +12,29 @@ function isAuthorizedRequest(request: Request): boolean {
     return true;
   }
 
-  const authorizationHeader = request.headers.get('authorization');
+  const authorizationHeader = request.headers.get("authorization");
   if (!authorizationHeader) {
     return false;
   }
 
-  const [scheme, token] = authorizationHeader.split(' ');
-  return scheme.toLowerCase() === 'bearer' && token === cronSecret;
+  const [scheme, token] = authorizationHeader.split(" ");
+  return scheme.toLowerCase() === "bearer" && token === cronSecret;
 }
 
 export async function GET(request: Request) {
   if (!isAuthorizedRequest(request)) {
-    return NextResponse.json({ error: 'Unauthorized request' }, { status: 401 });
+    return NextResponse.json({ error: "Unauthorized request" }, { status: 401 });
   }
 
-  console.log(`[DOM Scraping Started] Time: ${new Date().toISOString()}`);
+  console.log(`[Scraping Started] Time: ${new Date().toISOString()}`);
 
   let browser = null;
+  const results: Record<string, { count: number; error?: string }> = {};
 
   try {
-    const isMac = os.platform() === 'darwin';
+    const isMac = os.platform() === "darwin";
     const executablePath = isMac
-      ? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+      ? "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
       : await chromium.executablePath();
 
     browser = await puppeteer.launch({
@@ -59,68 +44,76 @@ export async function GET(request: Request) {
       headless: true,
     });
 
-    const page = await browser.newPage();
-    await page.setUserAgent(
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-    );
+    for (const scraper of scrapers) {
+      try {
+        // 대학 slug → id 조회
+        const { data: university, error: universityError } = await supabaseAdmin
+          .from("universities")
+          .select("id")
+          .eq("slug", scraper.universitySlug)
+          .single();
 
-    const url = 'https://oia.gachon.ac.kr/international/a/m/graduateInfo.do';
-    await page.goto(url, { waitUntil: 'networkidle0', timeout: 60000 });
-    await page.waitForSelector('#admissioninfo', { timeout: 30000 });
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    if (universityError || !university) {
+  console.error(`[Skip] university lookup failed: ${scraper.universitySlug}`, universityError);
+  results[scraper.universitySlug] = {
+    count: 0,
+    error: universityError?.message ?? "university not found",
+  };
+  continue;
+}
 
-    const posts: ScrapedPost[] = await page.evaluate(() => {
-      const baseUrl = 'https://oia.gachon.ac.kr';
-      const items = Array.from(document.querySelectorAll('#admissioninfo ul li'));
+        const page = await browser.newPage();
+        await page.setUserAgent(
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        );
 
-      return items
-        .map((li) => {
-          const p = li.querySelector('.col_3 p');
-          const category = li.querySelector('.col_2')?.textContent?.trim() || '';
-          const title = p?.childNodes[0]?.textContent?.trim() || '입학 정보';
-          const author = li.querySelector('.col_4')?.textContent?.trim() || '';
-          const date = li.querySelector('.col_5')?.textContent?.trim() || '';
+        const posts = await scraper.run(page);
+        await page.close();
 
-          const onclick = p?.getAttribute('onclick') || '';
-          const match = onclick.match(/fnGoBoardDetail\('([^']+)',\s*'([^']+)'\)/);
-          const postUrl = match ? `${baseUrl}${match[1]}?borKey=${match[2]}` : '';
+        console.log(`[${scraper.universitySlug}] scraped ${posts.length} posts`);
 
-          return {
-            title,
-            content: `분류: ${category}, 작성자: ${author}, 날짜: ${date}`,
-            url: postUrl,
+        if (posts.length === 0) {
+          results[scraper.universitySlug] = { count: 0 };
+          continue;
+        }
+
+        const rows = posts.map((post) => ({
+          university_id: university.id,
+          title: post.title,
+          url: post.url,
+          published_at: post.publishedAt,
+          crawled_at: new Date().toISOString(),
+        }));
+
+        const { error: upsertError } = await supabaseAdmin
+          .from("university_posts")
+          .upsert(rows, { onConflict: "university_id,url" });
+
+revalidatePath("/"); // 홈 화면 갱신
+          revalidatePath(`/universities/${scraper.universitySlug}`); 
+
+        if (upsertError) {
+          console.error(`[${scraper.universitySlug}] upsert error`, upsertError);
+          results[scraper.universitySlug] = {
+            count: 0,
+            error: upsertError.message,
           };
-        })
-        .filter((post) => post.url !== '');
-    });
+          continue;
+        }
 
-    console.log(`[Scraping Success] Processed ${posts.length} posts`);
-
-    const rows = posts.map((post) => {
-      const dateMatch = post.content.match(/날짜:\s*([^\s,]+)/);
-      const postedAt = normalizeDate(dateMatch?.[1] ?? '');
-      return {
-        university_name: '가천대학교',
-        title: post.title,
-        content: post.content,
-        url: post.url,
-        posted_at: postedAt,
-      };
-    });
-
-    const { error } = await supabase
-      .from('university_info')
-      .upsert(rows, { onConflict: 'url' });
-
-    if (error) {
-      console.error('[DB Upsert Error]', error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
+        results[scraper.universitySlug] = { count: rows.length };
+      } catch (scraperError: unknown) {
+        const message =
+          scraperError instanceof Error ? scraperError.message : "Unknown error";
+        console.error(`[${scraper.universitySlug}] failed`, scraperError);
+        results[scraper.universitySlug] = { count: 0, error: message };
+      }
     }
 
-    return NextResponse.json({ message: 'Success', count: posts.length });
+    return NextResponse.json({ message: "Success", results });
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : 'Unknown scraping error';
-    console.error('[Scraping Error]', error);
+    const message = error instanceof Error ? error.message : "Unknown scraping error";
+    console.error("[Scraping Error]", error);
     return NextResponse.json({ error: message }, { status: 500 });
   } finally {
     if (browser) {
