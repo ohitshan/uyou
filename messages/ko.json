@@ -1,0 +1,15 @@
+{
+  "Home": {
+    "bannerTitle": "Uyou와 함께 꿈꾸는 한국 유학",
+    "contactButton": "문의하기",
+    "listTitle": "대학 리스트",
+    "count": "{count}개",
+    "empty": "등록된 대학 정보가 없습니다."
+  },
+  "UniversityDetail": {
+    "addressLabel": "주소",
+    "siteLink": "학교 홈페이지 바로가기",
+    "noticeTitle": "공지사항",
+    "noPosts": "아직 등록된 게시물이 없습니다."
+  }
+}

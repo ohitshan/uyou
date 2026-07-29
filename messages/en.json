@@ -1,0 +1,15 @@
+{
+  "Home": {
+    "bannerTitle": "Study in Korea with Uyou",
+    "contactButton": "Contact Us",
+    "listTitle": "Universities",
+    "count": "{count}",
+    "empty": "No universities registered yet."
+  },
+  "UniversityDetail": {
+    "addressLabel": "Address",
+    "siteLink": "Visit official website",
+    "noticeTitle": "Notices",
+    "noPosts": "No posts yet."
+  }
+}

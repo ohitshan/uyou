@@ -1,15 +1,20 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { supabase } from "@/lib/supabase";
 import { PostCard } from "@/components/post-card";
 
 export const revalidate = 3600;
 
-async function getUniversity(slug: string) {
+async function getUniversity(slug: string, locale: string) {
   const { data, error } = await supabase
     .from("universities")
-    .select("id, name, region, address, description, logo_url, site_url")
+    .select(
+      `id, name, region, address, description, logo_url, site_url,
+       university_translations!left(name, region, address, description)`
+    )
     .eq("slug", slug)
+    .eq("university_translations.locale", locale)
     .single();
 
   if (error) return null;
@@ -30,14 +35,23 @@ async function getPosts(universityId: string) {
 export default async function UniversityDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
-  const university = await getUniversity(slug);
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+
+  const t = await getTranslations("UniversityDetail");
+  const university = await getUniversity(slug, locale);
 
   if (!university) {
     notFound();
   }
+
+  const translation = university.university_translations?.[0];
+  const displayName = translation?.name || university.name;
+  const displayRegion = translation?.region || university.region;
+  const displayAddress = translation?.address || university.address;
+  const displayDescription = translation?.description || university.description;
 
   const posts = await getPosts(university.id);
 
@@ -49,7 +63,7 @@ export default async function UniversityDetailPage({
           <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-background">
             <Image
               src={university.logo_url}
-              alt={`${university.name} 로고`}
+              alt={`${displayName} 로고`}
               width={64}
               height={64}
               className="h-full w-full object-contain"
@@ -57,40 +71,46 @@ export default async function UniversityDetailPage({
           </div>
           <div>
             <h1 className="text-h2 font-bold text-text-primary">
-              {university.name}
+              {displayName}
             </h1>
             <p className="mt-1 text-sm text-text-secondary">
-              {university.region}
+              {displayRegion}
             </p>
           </div>
         </div>
 
-        {university.description && (
+        {displayDescription && (
           <p className="mt-4 text-body-lg text-text-primary">
-            {university.description}
+            {displayDescription}
           </p>
         )}
 
         <div className="mt-4 flex flex-col gap-1 text-sm text-text-secondary">
-          {university.address && <p>주소: {university.address}</p>}
+          {displayAddress && (
+            <p>
+              {t("addressLabel")}: {displayAddress}
+            </p>
+          )}
           <a
             href={university.site_url}
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary hover:underline"
           >
-            학교 홈페이지 바로가기
+            {t("siteLink")}
           </a>
         </div>
       </section>
 
       {/* 게시물 리스트 */}
       <section className="mt-8">
-        <h2 className="text-h3 font-semibold text-text-primary">공지사항</h2>
+        <h2 className="text-h3 font-semibold text-text-primary">
+          {t("noticeTitle")}
+        </h2>
 
         {posts.length === 0 ? (
           <div className="mt-4 rounded-lg border border-border bg-surface p-8 text-center text-text-secondary">
-            아직 등록된 게시물이 없습니다.
+            {t("noPosts")}
           </div>
         ) : (
           <ul className="mt-4 flex flex-col gap-3">

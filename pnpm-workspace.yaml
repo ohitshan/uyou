@@ -1,4 +1,6 @@
 allowBuilds:
+  '@parcel/watcher': false
+  '@swc/core': false
   canvas: set this to true or false
   sharp: true
   unrs-resolver: true
