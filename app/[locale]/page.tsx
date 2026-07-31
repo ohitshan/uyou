@@ -3,6 +3,7 @@ import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { supabase } from "@/lib/supabase";
 import { UniversityCard } from "@/components/university-card";
+import { UniversityRanking } from "@/components/university-ranking";
 import { Button } from "@/components/ui/button";
 
 export const revalidate = 3600;
@@ -30,6 +31,38 @@ async function getUniversities(locale: string) {
   return data;
 }
 
+async function getTopRankings() {
+  // 가장 최근 연도 확인 (연도별 데이터가 늘어나도 항상 최신 기준으로 순위 계산)
+  const { data: latestYearRow, error: yearError } = await supabase
+    .from("university_statistics")
+    .select("year")
+    .order("year", { ascending: false })
+    .limit(1)
+    .single();
+
+  if (yearError || !latestYearRow) return [];
+
+  const { data, error } = await supabase
+    .from("university_statistics")
+    .select(
+      `id, university_name, campus_name, foreign_student_count,
+       universities(slug)`,
+    )
+    .eq("year", latestYearRow.year)
+    .order("foreign_student_count", { ascending: false })
+    .limit(10);
+
+  if (error) throw error;
+
+  return data.map((row) => ({
+    id: row.id,
+    universityName: row.university_name,
+    campusName: row.campus_name,
+    foreignStudentCount: row.foreign_student_count,
+    slug: row.universities?.[0]?.slug ?? null,
+  }));
+}
+
 export default async function Page({
   params,
 }: {
@@ -40,6 +73,7 @@ export default async function Page({
 
   const t = await getTranslations("Home");
   const universities = await getUniversities(locale);
+  const rankings = await getTopRankings();
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
@@ -66,6 +100,16 @@ export default async function Page({
           </Button>
         </div>
       </div>
+
+      {/* 외국인 유학생 수 Top 10 */}
+      {rankings.length > 0 && (
+        <div className="mb-10">
+          <h2 className="mb-4 text-h2 font-bold text-text-primary">
+            {t("rankingTitle")}
+          </h2>
+          <UniversityRanking items={rankings} locale={locale} />
+        </div>
+      )}
 
       {/* 대학 리스트 */}
       <div className="mb-6 flex items-center justify-between">
