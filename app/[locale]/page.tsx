@@ -22,7 +22,7 @@ async function getUniversities(locale: string) {
     .from("universities")
     .select(
       `id, name, region, logo_url, slug,
-       university_translations!left(name, region)`
+       university_translations!left(name, region)`,
     )
     .eq("university_translations.locale", locale);
 
@@ -57,7 +57,11 @@ export default async function Page({
           <h1 className="text-3xl font-bold text-white md:text-4xl">
             {t("bannerTitle")}
           </h1>
-          <Button size="lg" variant="secondary" type="button">
+          <Button
+            size="lg"
+            variant="secondary"
+            render={<a href="mailto:uyou9599@gmail.com" />}
+          >
             {t("contactButton")}
           </Button>
         </div>

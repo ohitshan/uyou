@@ -11,5 +11,8 @@
     "siteLink": "Visit official website",
     "noticeTitle": "Notices",
     "noPosts": "No posts yet."
+  },
+  "Footer": {
+    "copyright": "© 2026 UYOU. All rights reserved."
   }
 }

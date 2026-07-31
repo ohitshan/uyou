@@ -11,5 +11,8 @@
     "siteLink": "학교 홈페이지 바로가기",
     "noticeTitle": "공지사항",
     "noPosts": "아직 등록된 게시물이 없습니다."
+  },
+  "Footer": {
+    "copyright": "© 2026 UYOU. All rights reserved."
   }
 }

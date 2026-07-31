@@ -2,6 +2,7 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -23,10 +24,11 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body>
+      <body className="flex min-h-screen flex-col">
         <NextIntlClientProvider>
           <Header />
-          {children}
+          <div className="flex-1">{children}</div>
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>
