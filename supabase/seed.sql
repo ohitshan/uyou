@@ -47,6 +47,17 @@ values (
 
 insert into universities (name, slug, logo_url, site_url, region, address, description)
 values (
+  '한양대학교 ERICA',
+  'hanyang-erica-campus',
+  'https://skzdwrzrmbiqlrevwdgb.supabase.co/storage/v1/object/sign/uyou/universities/hanyang/hanyang-logo.png?token=******',
+  'https://www.hanyang.ac.kr/web/www/erica',
+  '경기도',
+  '경기도 안산시 상록구 한양대학로 55',
+  '한양대학교 ERICA는 경기도 안산시에 위치한 한양대학교의 분교 캠퍼스로, 공학·과학·디자인·국제학 등 다양한 분야에서 실무 중심 교육과 산학협력을 강화해 온 글로벌 캠퍼스입니다.'
+);
+
+insert into universities (name, slug, logo_url, site_url, region, address, description)
+values (
   '서강대학교',
   'sogang-university',
   'https://skzdwrzrmbiqlrevwdgb.supabase.co/storage/v1/object/sign/uyou/universities/sogang/sogang-logo.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85ODAzYTU4ZS1lNWFiLTQ0N2ItODYyNS1lYzYzMmI4NDJmOTYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ1eW91L3VuaXZlcnNpdGllcy9zb2dhbmcvc29nYW5nLWxvZ28ucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4NTIxNDIxNCwiZXhwIjo0OTM4ODE0MjE0fQ.IH3tI5xo5YeUceeP4Il4r826uIG1JsvTeSHovmSRrVw',
@@ -77,6 +88,51 @@ values (
   '서울특별시 동대문구 경희대로 26',
   '경희대학교는 서울특별시 동대문구 서울캠퍼스와 경기도 용인시 국제캠퍼스를 운영하는 사립 종합대학으로, 1949년 신흥초급대학으로 설립되어 1952년 경희대학교로 개편되었습니다. 인문·사회·법·경영·의학·치의학·약학·한의학·이공계·예술·체육 등 다양한 분야에서 교육과 연구를 수행하고 있으며, 국제화와 학문 융합을 핵심 가치로 세계 여러 대학과 활발한 교류를 이어가는 국내 대표 사립대학교 중 하나입니다.'
 );
+
+insert into universities (name, slug, logo_url, site_url, region, address, description)
+values (
+  '연세대학교',
+  'yonsei-university',
+  'https://skzdwrzrmbiqlrevwdgb.supabase.co/storage/v1/object/sign/uyou/universities/yonsei/logo.jpg',
+  'https://www.yonsei.ac.kr',
+  '서울특별시',
+  '서울특별시 서대문구 연세로 50',
+  '연세대학교는 서울특별시 서대문구에 위치한 대한민국의 대표적인 사립 종합대학교입니다.'
+);
+
+insert into universities (name, slug, logo_url, site_url, region, address, description)
+values (
+  '한국외국어대학교',
+  'hankuk-university-of-foreign-studies',
+  'https://skzdwrzrmbiqlrevwdgb.supabase.co/storage/v1/object/sign/uyou/universities/hufs/logo.jpg',
+  'https://www.hufs.ac.kr',
+  '서울특별시',
+  '서울특별시 동대문구 이문로 107',
+  '한국외국어대학교는 서울특별시 동대문구에 위치한 대한민국의 대표적인 사립 종합대학교로, 외국어 및 국제 분야 교육과 연구에 특화된 대학입니다.'
+);
+
+insert into universities (name, slug, logo_url, site_url, region, address, description)
+values (
+  '서울시립대학교',
+  'university-of-seoul',
+  'https://skzdwrzrmbiqlrevwdgb.supabase.co/storage/v1/object/sign/uyou/universities/uos/logo.jpg',
+  'https://www.uos.ac.kr',
+  '서울특별시',
+  '서울특별시 동대문구 서울시립대로 163',
+  '서울시립대학교는 서울특별시 동대문구에 위치한 서울특별시가 설립·운영하는 공립 종합대학교입니다.'
+);
+
+insert into universities ( name, slug, logo_url, site_url, region, address, description)
+values (
+  '동국대학교',
+  'dongguk-university',
+  'https://skzdwrzrmbiqlrevwdgb.supabase.co/storage/v1/object/sign/uyou/universities/dongguk/logo.jpg',
+  'https://www.dongguk.edu',
+  '서울특별시',
+  '서울특별시 중구 필동로1길 30',
+  '동국대학교는 서울특별시 중구에 위치한 대한민국의 대표적인 사립 종합대학교입니다.'
+);
+
 
 -- ============================================================
 -- 영어 번역 (university_translations)
@@ -117,6 +173,14 @@ from universities where slug = 'hanyang-university';
 
 insert into university_translations (university_id, locale, name, region, address, description)
 select id, 'en',
+  'Hanyang University ERICA Campus',
+  'Gyeonggi-do',
+  '55 Hanyangdaehak-ro, Sangnok-gu, Ansan-si, Gyeonggi-do',
+  'Hanyang University ERICA Campus is Hanyang University''s branch campus located in Ansan, Gyeonggi-do, recognized for practice-oriented education and strong industry-academia collaboration across engineering, science, design, and international studies.'
+from universities where slug = 'hanyang-erica-campus';
+
+insert into university_translations (university_id, locale, name, region, address, description)
+select id, 'en',
   'Sogang University',
   'Seoul',
   '35 Baekbeom-ro, Mapo-gu, Seoul',
@@ -139,6 +203,40 @@ select id, 'en',
   'Kyung Hee University is a private comprehensive university operating the Seoul Campus in Dongdaemun-gu, Seoul and the Global Campus in Yongin, Gyeonggi-do. It was founded in 1949 as Shinheung College and reorganized as Kyung Hee University in 1952. It conducts education and research across the humanities, social sciences, law, business, medicine, dentistry, pharmacy, Korean medicine, science and engineering, arts, and physical education, and is one of Korea''s leading private universities, actively exchanging with universities worldwide under its core values of internationalization and interdisciplinary convergence.'
 from universities where slug = 'kyunghee-university';
 
+insert into university_translations (university_id, locale, name, region, address, description)
+select id, 'en',
+  'Yonsei University',
+  'Seoul',
+  '50 Yonsei-ro, Seodaemun-gu, Seoul',
+  'Yonsei University is one of South Korea''s leading private comprehensive universities, located in Seodaemun-gu, Seoul.'
+from universities where slug = 'yonsei-university';
+
+insert into university_translations (university_id, locale, name, region, address, description)
+select id, 'en',
+  'Hankuk University of Foreign Studies',
+  'Seoul',
+  '107 Imun-ro, Dongdaemun-gu, Seoul',
+  'Hankuk University of Foreign Studies (HUFS) is a leading private comprehensive university located in Dongdaemun-gu, Seoul, specializing in foreign language and international studies education and research.'
+from universities where slug = 'hankuk-university-of-foreign-studies';
+
+insert into university_translations (university_id, locale, name, region, address, description)
+select id, 'en',
+  'University of Seoul',
+  'Seoul',
+  '163 Seoulsiripdae-ro, Dongdaemun-gu, Seoul',
+  'The University of Seoul is a public comprehensive university operated by the Seoul Metropolitan Government, located in Dongdaemun-gu, Seoul.'
+from universities
+where slug = 'university-of-seoul';
+
+
+insert into university_translations (university_id,locale,name,region,address,description)
+select id, 'en',
+  'Dongguk University',
+  'Seoul',
+  '30 Pildong-ro 1-gil, Jung-gu, Seoul',
+  'Dongguk University is a private comprehensive university located in Jung-gu, Seoul, and is one of the leading Buddhist universities in South Korea.'
+from universities
+where slug = 'dongguk-university';
 -- ============================================================
 -- 유학생 통계 (university_statistics) - 전체 226개 대학
 -- 출처: 교육부 공공데이터 "Status of foreign students (University), 2025"
