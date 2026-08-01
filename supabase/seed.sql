@@ -134,6 +134,39 @@ values (
 );
 
 
+insert into universities ( name, slug, logo_url, site_url, region, address, description)
+values (
+  '숭실대학교',
+  'soongsil-university',
+  'https://skzdwrzrmbiqlrevwdgb.supabase.co/storage/v1/object/sign/uyou/universities/soongsil/logo.jpg',
+  'https://www.ssu.ac.kr',
+  '서울특별시',
+  '서울특별시 동작구 상도로 369',
+  '숭실대학교는 서울특별시 동작구에 위치한 대한민국의 사립 종합대학교입니다.'
+);
+
+insert into universities (name, slug, logo_url, site_url, region, address, description)
+values (
+  '건국대학교',
+  'konkuk-university',
+  'https://skzdwrzrmbiqlrevwdgb.supabase.co/storage/v1/object/sign/uyou/universities/konkuk/logo.jpg',
+  'https://www.konkuk.ac.kr',
+  '서울특별시',
+  '서울특별시 광진구 능동로 120',
+  '건국대학교는 서울특별시 광진구에 위치한 대한민국의 사립 종합대학교입니다.'
+);
+
+insert into universities ( name, slug, logo_url, site_url, region, address, description)
+values (
+  '홍익대학교',
+  'hongik-university',
+  'https://skzdwrzrmbiqlrevwdgb.supabase.co/storage/v1/object/sign/uyou/universities/hongik/logo.jpg',
+  'https://www.hongik.ac.kr',
+  '서울특별시',
+  '서울특별시 마포구 와우산로 94',
+  '홍익대학교는 서울특별시 마포구에 위치한 대한민국의 사립 종합대학교입니다.'
+);
+
 -- ============================================================
 -- 영어 번역 (university_translations)
 -- 20260726110000_create_university_translations.sql 마이그레이션 필요
@@ -237,6 +270,36 @@ select id, 'en',
   'Dongguk University is a private comprehensive university located in Jung-gu, Seoul, and is one of the leading Buddhist universities in South Korea.'
 from universities
 where slug = 'dongguk-university';
+
+insert into university_translations ( university_id, locale, name, region, address, description)
+select id, 'en',
+  'Soongsil University',
+  'Seoul',
+  '369 Sangdo-ro, Dongjak-gu, Seoul',
+  'Soongsil University is a private comprehensive university located in Dongjak-gu, Seoul.'
+from universities
+where slug = 'soongsil-university';
+
+insert into university_translations (university_id,locale,name,region,address,description)
+select
+  id,
+  'en',
+  'Konkuk University',
+  'Seoul',
+  '120 Neungdong-ro, Gwangjin-gu, Seoul',
+  'Konkuk University is a private comprehensive university located in Gwangjin-gu, Seoul.'
+from universities
+where slug = 'konkuk-university';
+
+insert into university_translations ( university_id, locale, name, region, address, description)
+select id, 'en',
+  'Hongik University',
+  'Seoul',
+  '94 Wausan-ro, Mapo-gu, Seoul',
+  'Hongik University is a private comprehensive university located in Mapo-gu, Seoul.'
+from universities
+where slug = 'hongik-university';
+
 -- ============================================================
 -- 유학생 통계 (university_statistics) - 전체 226개 대학
 -- 출처: 교육부 공공데이터 "Status of foreign students (University), 2025"
