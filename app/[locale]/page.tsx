@@ -91,6 +91,9 @@ export default async function Page({
           <h1 className="text-3xl font-bold text-white md:text-4xl">
             {t("bannerTitle")}
           </h1>
+          <p className="text-sm text-white/90 md:text-base">
+            {t("bannerSubtitle")}
+          </p>
           <Button
             size="lg"
             variant="secondary"
