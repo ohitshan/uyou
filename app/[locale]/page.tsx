@@ -8,15 +8,31 @@ import { Button } from "@/components/ui/button";
 
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
-  title: "Uyou - 한국 유학 정보 통합 플랫폼",
-  description: "최신 대학 입학 정보와 모집 요강을 한눈에 확인하세요.",
-  openGraph: {
-    title: "Uyou - 한국 유학 정보 통합 플랫폼",
-    description: "최신 대학 입학 정보와 모집 요강을 한눈에 확인하세요.",
-    images: [{ url: "/banner.png" }],
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Metadata" });
+
+  return {
+    title: t("homeTitle"),
+    description: t("homeDescription"),
+    alternates: {
+      canonical: `/${locale}`,
+      languages: {
+        ko: "/ko",
+        en: "/en",
+      },
+    },
+    openGraph: {
+      title: t("homeTitle"),
+      description: t("homeDescription"),
+      images: [{ url: "/banner.png" }],
+    },
+  };
+}
 
 async function getUniversities(locale: string) {
   const { data, error } = await supabase

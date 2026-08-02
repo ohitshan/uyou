@@ -1,4 +1,10 @@
 {
+  "Metadata": {
+    "defaultTitle": "UYOU - 한국 유학 정보 통합 플랫폼",
+    "defaultDescription": "외국인 유학생을 위한 한국 대학 입학 정보와 모집 요강을 한눈에 확인하세요.",
+    "homeTitle": "UYOU - 한국 유학 정보 통합 플랫폼",
+    "homeDescription": "최신 대학 입학 정보와 모집 요강을 한눈에 확인하세요."
+  },
   "Home": {
     "bannerTitle": "Uyou와 함께 꿈꾸는 한국 유학",
     "bannerSubtitle": "더 궁금한 대학이 있나요? 언제든 편하게 문의해주세요.",
