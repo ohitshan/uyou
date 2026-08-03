@@ -2,7 +2,8 @@ import type { MetadataRoute } from "next";
 import { supabase } from "@/lib/supabase";
 import { routing } from "@/i18n/routing";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://uyou.co.kr";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://uyou-two.vercel.app";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const { data: universities } = await supabase

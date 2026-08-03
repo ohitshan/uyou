@@ -40,11 +40,21 @@ export async function generateMetadata({
       type: "website",
     },
     icons: {
-      icon: "/icon.png",
+      icon: [
+        { url: "/favicon.ico", sizes: "any" },
+        { url: "/icon.png", type: "image/png" },
+      ],
       apple: "/apple-icon.png",
     },
   };
 }
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "UYOU",
+  url: SITE_URL,
+};
 
 export default async function LocaleLayout({
   children,
@@ -61,6 +71,13 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
+      <head>
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+      </head>
       <body className="flex min-h-screen flex-col">
         <NextIntlClientProvider>
           <Header />
