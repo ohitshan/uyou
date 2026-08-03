@@ -11,8 +11,10 @@
     "contactButton": "문의하기",
     "rankingTitle": "외국인 유학생 수 Top 10",
     "listTitle": "대학 리스트",
+    "searchPlaceholder": "대학 이름으로 검색",
+    "regionAll": "전체 지역",
     "count": "{count}개",
-    "empty": "등록된 대학 정보가 없습니다."
+    "empty": "조건에 맞는 대학이 없습니다."
   },
   "UniversityDetail": {
     "addressLabel": "주소",

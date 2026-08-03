@@ -11,8 +11,10 @@
     "contactButton": "Contact Us",
     "rankingTitle": "Top 10 Universities by International Students",
     "listTitle": "Universities",
+    "searchPlaceholder": "Search by university name",
+    "regionAll": "All Regions",
     "count": "{count}",
-    "empty": "No universities registered yet."
+    "empty": "No universities match your search."
   },
   "UniversityDetail": {
     "addressLabel": "Address",

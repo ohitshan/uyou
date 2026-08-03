@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export interface UniversityCardProps {
   name: string;
@@ -38,9 +39,9 @@ export function UniversityCard({
 
   if (href) {
     return (
-      <a href={href} className="block">
+      <Link href={href} className="block" prefetch>
         {Card}
-      </a>
+      </Link>
     );
   }
 

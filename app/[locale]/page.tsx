@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { supabase } from "@/lib/supabase";
-import { UniversityCard } from "@/components/university-card";
+import { UniversityList } from "@/components/university-list";
 import { UniversityRanking } from "@/components/university-ranking";
 import { Button } from "@/components/ui/button";
 
@@ -131,35 +131,19 @@ export default async function Page({
       )}
 
       {/* 대학 리스트 */}
-      <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-h2 font-bold text-text-primary">
-          {t("listTitle")}
-        </h2>
-        <span className="text-sm text-text-secondary">
-          {t("count", { count: universities?.length ?? 0 })}
-        </span>
-      </div>
-
-      {universities.length === 0 ? (
-        <div className="rounded-lg border border-border bg-surface p-12 text-center text-text-secondary">
-          {t("empty")}
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {universities.map((u) => {
-            const translation = u.university_translations?.[0];
-            return (
-              <UniversityCard
-                key={u.id}
-                name={translation?.name || u.name}
-                region={translation?.region || u.region}
-                logoUrl={u.logo_url}
-                href={`/${locale}/universities/${u.slug}`}
-              />
-            );
-          })}
-        </div>
-      )}
+      <UniversityList
+        universities={universities.map((u) => {
+          const translation = u.university_translations?.[0];
+          return {
+            id: u.id,
+            name: translation?.name || u.name,
+            region: translation?.region || u.region,
+            logo_url: u.logo_url,
+            slug: u.slug,
+          };
+        })}
+        locale={locale}
+      />
     </main>
   );
 }
