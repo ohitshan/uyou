@@ -57,6 +57,7 @@ export async function generateMetadata({
       languages: {
         ko: `/ko/universities/${slug}`,
         en: `/en/universities/${slug}`,
+        my: `/my/universities/${slug}`,
       },
     },
     openGraph: {

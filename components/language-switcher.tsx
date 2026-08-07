@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 const LOCALE_LABELS: Record<string, string> = {
   ko: "한국어",
   en: "English",
+  my: "မြန်မာ",
 };
 
 export function LanguageSwitcher() {
@@ -21,7 +22,7 @@ export function LanguageSwitcher() {
     router.replace(
       // @ts-expect-error -- params는 현재 라우트의 동적 세그먼트(slug 등)를 그대로 유지하기 위함
       { pathname, params },
-      { locale: nextLocale }
+      { locale: nextLocale },
     );
   }
 
@@ -36,7 +37,7 @@ export function LanguageSwitcher() {
             "rounded px-2.5 py-1 text-sm font-medium transition-colors",
             loc === locale
               ? "bg-primary text-white"
-              : "text-text-secondary hover:bg-primary-light hover:text-primary"
+              : "text-text-secondary hover:bg-primary-light hover:text-primary",
           )}
           aria-current={loc === locale ? "true" : undefined}
         >
@@ -45,4 +46,4 @@ export function LanguageSwitcher() {
       ))}
     </div>
   );
-}   
+}

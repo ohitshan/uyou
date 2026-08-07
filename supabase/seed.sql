@@ -300,6 +300,132 @@ select id, 'en',
 from universities
 where slug = 'hongik-university';
 
+
+-- ============================================================
+-- 미얀마어 번역 (university_translations, locale='my')
+-- 학교명/지역명은 영어 표기 유지, 소개문만 미얀마어로 번역
+-- ============================================================
+
+insert into university_translations (university_id, locale, name, region, address, description)
+select id, 'my',
+  'Gachon University',
+  'Gyeonggi-do',
+  '1342 Seongnam-daero, Sujeong-gu, Seongnam-si, Gyeonggi-do',
+  'Gachon University သည် Gyeonggi-do ပြည်နယ်၊ Seongnam မြို့တွင် တည်ရှိသော ဘက်စုံတက္ကသိုလ်တစ်ခုဖြစ်သည်။'
+from universities where slug = 'gachon-university';
+
+insert into university_translations (university_id, locale, name, region, address, description)
+select id, 'my',
+  'Sejong University',
+  'Seoul',
+  '209 Neungdong-ro, Gwangjin-gu, Seoul (Gunja-dong)',
+  'Sejong University သည် Seoul မြို့၊ Gwangjin-gu ဒေသတွင် တည်ရှိသည့် ပုဂ္ဂလိကဘက်စုံတက္ကသိုလ်ဖြစ်ပြီး ၁၉၄၀ ခုနှစ်တွင် တည်ထောင်ခဲ့သည်။ Hotel Management နှင့် Computer Science ဆိုင်ရာ ပညာရေးနှင့် သုတေသနတွင် ထင်ရှားသည်။'
+from universities where slug = 'sejong-university';
+
+insert into university_translations (university_id, locale, name, region, address, description)
+select id, 'my',
+  'Chung-Ang University',
+  'Seoul',
+  '84 Heukseok-ro, Dongjak-gu, Seoul',
+  'Chung-Ang University သည် Seoul မြို့၊ Dongjak-gu ဒေသနှင့် Gyeonggi-do ပြည်နယ်၊ Anseong မြို့တို့တွင် ကျောင်းဝင်းများရှိသော ပုဂ္ဂလိကဘက်စုံတက္ကသိုလ်ဖြစ်ပြီး ၁၉၁၈ ခုနှစ်တွင် တည်ထောင်ခဲ့သည်။ ဖျော်ဖြေရေးအနုပညာနှင့် မီဒီယာဆိုင်ရာ ထင်ရှားသည်။'
+from universities where slug = 'chungang-university';
+
+insert into university_translations (university_id, locale, name, region, address, description)
+select id, 'my',
+  'Hanyang University',
+  'Seoul',
+  '222 Wangsimni-ro, Seongdong-gu, Seoul',
+  'Hanyang University သည် Seoul မြို့၊ Seongdong-gu ဒေသတွင် ပင်မကျောင်းဝင်းရှိပြီး Gyeonggi-do ပြည်နယ်၊ Ansan မြို့တွင် ERICA ကျောင်းဝင်းရှိသော ပုဂ္ဂလိကဘက်စုံတက္ကသိုလ်ဖြစ်သည်။ အင်ဂျင်နီယာပညာရပ်ကို အဓိကထား၍ စက်မှုလုပ်ငန်း-ပညာရေးပူးပေါင်းမှုတွင် ထင်ရှားသည်။'
+from universities where slug = 'hanyang-university';
+
+insert into university_translations (university_id, locale, name, region, address, description)
+select id, 'my',
+  'Hanyang University ERICA Campus',
+  'Gyeonggi-do',
+  '55 Hanyangdaehak-ro, Sangnok-gu, Ansan-si, Gyeonggi-do',
+  'Hanyang University ERICA Campus သည် Gyeonggi-do ပြည်နယ်၊ Ansan မြို့တွင် တည်ရှိသော Hanyang University ၏ ဌာနခွဲကျောင်းဝင်းဖြစ်သည်။ အင်ဂျင်နီယာ၊ သိပ္ပံ၊ ဒီဇိုင်းနှင့် နိုင်ငံတကာဆိုင်ရာ ပညာရပ်များတွင် လက်တွေ့လုပ်ငန်းခွင်ဆိုင်ရာ ပညာရေးကို အလေးထားသည်။'
+from universities where slug = 'hanyang-erica-campus';
+
+insert into university_translations (university_id, locale, name, region, address, description)
+select id, 'my',
+  'Sogang University',
+  'Seoul',
+  '35 Baekbeom-ro, Mapo-gu, Seoul',
+  'Sogang University သည် Seoul မြို့၊ Mapo-gu ဒေသတွင် တည်ရှိသော ပုဂ္ဂလိကဘက်စုံတက္ကသိုလ်ဖြစ်ပြီး ၁၉၆၀ ခုနှစ်တွင် ယေဇူးအသင်းက တည်ထောင်ခဲ့သည်။ လူသားရေးနှင့် စီးပွားရေးစီမံခန့်ခွဲမှုပညာရပ်များတွင် ထင်ရှားသည်။'
+from universities where slug = 'sogang-university';
+
+insert into university_translations (university_id, locale, name, region, address, description)
+select id, 'my',
+  'Sungkyunkwan University',
+  'Seoul',
+  '25-2 Seonggyungwan-ro, Jongno-gu, Seoul',
+  'Sungkyunkwan University သည် Seoul မြို့၊ Jongno-gu ဒေသနှင့် Gyeonggi-do ပြည်နယ်၊ Suwon မြို့ရှိ သဘာဝသိပ္ပံကျောင်းဝင်းတို့ရှိသည့် ပုဂ္ဂလိကတက္ကသိုလ်ဖြစ်သည်။ Samsung ကုမ္ပဏီနှင့် စက်မှုလုပ်ငန်း-ပညာရေးပူးပေါင်းမှုအားဖြင့် ထင်ရှားသည်။'
+from universities where slug = 'sungkyunkwan-university';
+
+insert into university_translations (university_id, locale, name, region, address, description)
+select id, 'my',
+  'Kyung Hee University',
+  'Seoul',
+  '26 Kyungheedae-ro, Dongdaemun-gu, Seoul',
+  'Kyung Hee University သည် Seoul မြို့ကျောင်းဝင်းနှင့် Gyeonggi-do ပြည်နယ်၊ Yongin မြို့ရှိ နိုင်ငံတကာကျောင်းဝင်းတို့ကို လည်ပတ်နေသော ပုဂ္ဂလိကဘက်စုံတက္ကသိုလ်ဖြစ်သည်။ နိုင်ငံတကာသဘောထားနှင့် ပညာရပ်ပေါင်းစည်းမှုကို အဓိကထားသည်။'
+from universities where slug = 'kyunghee-university';
+
+insert into university_translations (university_id, locale, name, region, address, description)
+select id, 'my',
+  'Yonsei University',
+  'Seoul',
+  '50 Yonsei-ro, Seodaemun-gu, Seoul',
+  'Yonsei University သည် Seoul မြို့၊ Seodaemun-gu ဒေသတွင် တည်ရှိသော တောင်ကိုရီးယားနိုင်ငံ၏ ထိပ်တန်းပုဂ္ဂလိကဘက်စုံတက္ကသိုလ်များထဲမှတစ်ခုဖြစ်သည်။'
+from universities where slug = 'yonsei-university';
+
+insert into university_translations (university_id, locale, name, region, address, description)
+select id, 'my',
+  'Hankuk University of Foreign Studies',
+  'Seoul',
+  '107 Imun-ro, Dongdaemun-gu, Seoul',
+  'Hankuk University of Foreign Studies (HUFS) သည် Seoul မြို့၊ Dongdaemun-gu ဒေသတွင် တည်ရှိပြီး နိုင်ငံခြားဘာသာစကားနှင့် နိုင်ငံတကာပညာရပ်ဆိုင်ရာ ပညာရေးနှင့် သုတေသနတွင် ထူးချွန်သော ပုဂ္ဂလိကဘက်စုံတက္ကသိုလ်ဖြစ်သည်။'
+from universities where slug = 'hankuk-university-of-foreign-studies';
+
+insert into university_translations (university_id, locale, name, region, address, description)
+select id, 'my',
+  'University of Seoul',
+  'Seoul',
+  '163 Seoulsiripdae-ro, Dongdaemun-gu, Seoul',
+  'University of Seoul သည် Seoul မြို့တော်အစိုးရမှ တည်ထောင်လည်ပတ်သော Seoul မြို့၊ Dongdaemun-gu ဒေသရှိ နိုင်ငံပိုင်ဘက်စုံတက္ကသိုလ်ဖြစ်သည်။'
+from universities where slug = 'university-of-seoul';
+
+insert into university_translations (university_id, locale, name, region, address, description)
+select id, 'my',
+  'Dongguk University',
+  'Seoul',
+  '30 Pildong-ro 1-gil, Jung-gu, Seoul',
+  'Dongguk University သည် Seoul မြို့၊ Jung-gu ဒေသတွင် တည်ရှိပြီး တောင်ကိုရီးယားနိုင်ငံ၏ ထင်ရှားသော ဗုဒ္ဓဘာသာဆိုင်ရာ တက္ကသိုလ်များထဲမှတစ်ခုဖြစ်သော ပုဂ္ဂလိကဘက်စုံတက္ကသိုလ်ဖြစ်သည်။'
+from universities where slug = 'dongguk-university';
+
+insert into university_translations (university_id, locale, name, region, address, description)
+select id, 'my',
+  'Soongsil University',
+  'Seoul',
+  '369 Sangdo-ro, Dongjak-gu, Seoul',
+  'Soongsil University သည် Seoul မြို့၊ Dongjak-gu ဒေသတွင် တည်ရှိသော တောင်ကိုရီးယားနိုင်ငံ၏ ပုဂ္ဂလိကဘက်စုံတက္ကသိုလ်တစ်ခုဖြစ်သည်။'
+from universities where slug = 'soongsil-university';
+
+insert into university_translations (university_id, locale, name, region, address, description)
+select id, 'my',
+  'Konkuk University',
+  'Seoul',
+  '120 Neungdong-ro, Gwangjin-gu, Seoul',
+  'Konkuk University သည် Seoul မြို့၊ Gwangjin-gu ဒေသတွင် တည်ရှိသော တောင်ကိုရီးယားနိုင်ငံ၏ ပုဂ္ဂလိကဘက်စုံတက္ကသိုလ်တစ်ခုဖြစ်သည်။'
+from universities where slug = 'konkuk-university';
+
+insert into university_translations (university_id, locale, name, region, address, description)
+select id, 'my',
+  'Hongik University',
+  'Seoul',
+  '94 Wausan-ro, Mapo-gu, Seoul',
+  'Hongik University သည် Seoul မြို့၊ Mapo-gu ဒေသတွင် တည်ရှိသော တောင်ကိုရီးယားနိုင်ငံ၏ ပုဂ္ဂလိကဘက်စုံတက္ကသိုလ်တစ်ခုဖြစ်ပြီး အနုပညာနှင့် ဒီဇိုင်းပညာရပ်များဖြင့် ထင်ရှားသည်။'
+from universities where slug = 'hongik-university';
+
 -- ============================================================
 -- 유학생 통계 (university_statistics) - 전체 226개 대학
 -- 출처: 교육부 공공데이터 "Status of foreign students (University), 2025"
