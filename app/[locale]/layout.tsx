@@ -2,13 +2,17 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+
 import { routing } from "@/i18n/routing";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+
 import "../globals.css";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://uyou-two.vercel.app";
+
+const SITE_NAME = "UYOU";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -20,31 +24,48 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "Metadata" });
+
+  const t = await getTranslations({
+    locale,
+    namespace: "Metadata",
+  });
+
+  const title = t("defaultTitle");
+  const description = t("defaultDescription");
 
   return {
     metadataBase: new URL(SITE_URL),
+
+    applicationName: SITE_NAME,
+
     title: {
-      default: t("defaultTitle"),
-      template: `%s | UYOU`,
+      default: title,
+      template: `%s | ${SITE_NAME}`,
     },
-    description: t("defaultDescription"),
+
+    description,
+
     alternates: {
+      canonical: `${SITE_URL}/${locale}`,
+
       languages: Object.fromEntries(
         routing.locales.map((l) => [l, `${SITE_URL}/${l}`]),
       ),
     },
+
     openGraph: {
-      siteName: "UYOU",
+      title,
+      description,
+      siteName: SITE_NAME,
+      url: `${SITE_URL}/${locale}`,
       locale,
       type: "website",
     },
-    icons: {
-      icon: [
-        { url: "/favicon.ico", sizes: "any" },
-        { url: "/icon.png", type: "image/png" },
-      ],
-      apple: "/apple-icon.png",
+
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
     },
   };
 }
@@ -52,8 +73,9 @@ export async function generateMetadata({
 const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "UYOU",
-  url: SITE_URL,
+  name: SITE_NAME,
+  alternateName: ["Uyou", "유유"],
+  url: `${SITE_URL}/`,
 };
 
 export default async function LocaleLayout({
@@ -74,14 +96,18 @@ export default async function LocaleLayout({
       <head>
         <script
           type="application/ld+json"
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd),
+          }}
         />
       </head>
+
       <body className="flex min-h-screen flex-col">
         <NextIntlClientProvider>
           <Header />
+
           <div className="flex-1">{children}</div>
+
           <Footer />
         </NextIntlClientProvider>
       </body>
