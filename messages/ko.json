@@ -20,7 +20,10 @@
     "addressLabel": "주소",
     "siteLink": "학교 홈페이지 바로가기",
     "noticeTitle": "공지사항",
-    "noPosts": "아직 등록된 게시물이 없습니다."
+    "noPosts": "아직 등록된 게시물이 없습니다.",
+    "departmentsTitle": "모집 학과",
+    "noDepartments": "등록된 학과 정보가 없습니다.",
+    "departmentsNote": "{year}학년도 모집요강 기준입니다. 학과 신설·폐지 등 최신 정보는"
   },
   "Footer": {
     "copyright": "© 2026 UYOU. All rights reserved."

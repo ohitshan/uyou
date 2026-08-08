@@ -665,3 +665,125 @@ values
 (null, 'Korea Maritime & Ocean University', null, 'Busan', 2025, 241),
 (null, 'Kosin University', null, 'Busan', 2025, 79),
 (null, 'Kyungsung University', null, 'Busan', 2025, 1966);
+
+
+
+-- ============================================================
+-- 가천대학교 학과
+-- 기준: 2026학년도 2학기 외국인 학부 신입학 모집요강
+-- ============================================================
+
+insert into university_departments (
+  university_id,
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+select
+  u.id,
+  d.department_name_ko,
+  d.department_name_en,
+  d.guideline_year
+from universities u
+cross join (
+  values
+
+    -- 국제대학
+    ('국제학부 한국학전공', 'International (Koreanology)', 2026),
+    ('국제자유전공', 'International Liberal Studies', 2026),
+
+    -- 경영대학
+    ('경영학과', 'Business Administration', 2026),
+    ('경영학과(ENG)', 'Business Administration (ENG)', 2026),
+    ('미디어커뮤니케이션학과', 'Media Communication', 2026),
+    ('관광경영학과', 'Tourism Management', 2026),
+    ('심리학과', 'Psychology', 2026),
+    ('한국어교육학과', 'Korean Language Education', 2026),
+
+    -- IT융합대학
+    ('컴퓨터공학과', 'Computer Engineering', 2026),
+    ('컴퓨터공학과(ENG)', 'Computer Engineering (ENG)', 2026),
+
+    -- 금융수학과 / 회계세무 / 의료산업경영
+    ('회계세무학과', 'Accounting & Taxation', 2026),
+    ('의료산업경영학과', 'Healthcare Industrial Management', 2026),
+    ('금융·빅데이터학부', 'Finance & Big Data', 2026),
+
+    -- 사회과학
+    ('경제학과', 'Economics', 2026),
+    ('응용통계학과', 'Applied Statistics', 2026),
+    ('패션산업학과', 'Fashion Industry', 2026),
+
+    -- 법과대학
+    -- 모집단위가 비어 있고 비고에서 2학년 선택 전공을 확인
+    ('법학과', 'Law', 2026),
+    ('행정학과', 'Public Administration', 2026),
+
+    -- AI인문대학
+    -- 모집단위가 비어 있고 비고에서 2학년 선택 전공을 확인
+    ('한국어문학과', 'Korean Language & Literature', 2026),
+    ('영미어문학과', 'English Language & Literature', 2026),
+    ('중국어문학과', 'Chinese Language & Literature', 2026),
+    ('일본어문학과', 'Japanese Language & Literature', 2026),
+    ('유럽어문학과', 'European Language & Literature', 2026),
+
+    -- 공과대학
+    ('도시계획·조경학부', 'Urban Planning & Landscape', 2026),
+    ('건축학부', 'Architecture', 2026),
+    ('건축공학과', 'Architecture Engineering', 2026),
+    ('화공생명배터리공학부', 'Chemical & Biological & Battery Engineering', 2026),
+    ('기계공학부', 'Mechanical Engineering', 2026),
+    ('건설환경공학과', 'Construction Environment Engineering', 2026),
+    ('신소재공학과', 'New Material Engineering', 2026),
+
+    -- 바이오나노 / 자연과학
+    ('바이오나노학과', 'Bio-Nano', 2026),
+    ('식품생명공학과', 'Food & Life Engineering', 2026),
+    ('식품영양학과', 'Food & Nutrition', 2026),
+    ('생명과학과', 'Life Science', 2026),
+    ('반도체물리학과', 'Semiconductor Physics', 2026),
+    ('화학과', 'Chemistry', 2026),
+
+    -- 전기공학
+    ('전기공학과', 'Electrical Engineering', 2026),
+
+    -- 반도체대학
+    -- 모집단위는 비어 있고 비고에서 전자공학 전공 선택
+    ('전자공학', 'Electronic Engineering', 2026),
+
+    -- 미술·디자인
+    ('미술·디자인학부 - 회화전공', 'Arts & Design - Fine Arts', 2026),
+    ('미술·디자인학부 - 조소전공', 'Arts & Design - Sculpture', 2026),
+    ('미술·디자인학부 - 시각디자인전공', 'Arts & Design - Visual Design', 2026),
+    ('미술·디자인학부 - 산업디자인전공', 'Arts & Design - Industrial Design', 2026),
+
+    -- 음악
+    ('음악학부 - 성악전공', 'Music - Voice', 2026),
+    ('음악학부 - 기악전공(관현악)', 'Music - Pipe & String Music', 2026),
+    ('음악학부 - 기악전공(피아노)', 'Music - Piano', 2026),
+    ('음악학부 - 작곡전공', 'Music - Composition', 2026),
+
+    -- 체육
+    ('체육학부 - 체육전공', 'Physical Education - Physical Education', 2026),
+    ('체육학부 - 태권도전공', 'Physical Education - Taekwondo', 2026),
+
+    -- 연기
+    ('연기예술학과', 'Acting Arts', 2026),
+
+    -- 메디컬캠퍼스
+    ('치위생학과', 'Dental Hygiene', 2026),
+    ('응급구조학과', 'Emergency Medical Technology', 2026),
+    ('물리치료학과', 'Physical Therapy', 2026),
+    ('방사선학과', 'Radiology', 2026)
+
+) as d(
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+where u.slug = 'gachon-university'
+
+on conflict (university_id, department_name_ko, guideline_year)
+do update set
+  department_name_en = excluded.department_name_en,
+  updated_at = now();

@@ -20,7 +20,10 @@
     "addressLabel": "လိပ်စာ",
     "siteLink": "တက္ကသိုလ်၏ တရားဝင်ဝက်ဘ်ဆိုက်သို့ သွားရန်",
     "noticeTitle": "အသိပေးကြေညာချက်များ",
-    "noPosts": "ကြေညာချက်များ မရှိသေးပါ။"
+    "noPosts": "ကြေညာချက်များ မရှိသေးပါ။",
+    "departmentsTitle": "ဌာန/ဘာသာရပ်များ",
+    "noDepartments": "ဌာနဆိုင်ရာ အချက်အလက် မရှိသေးပါ။",
+    "departmentsNote": "{year} ခုနှစ် မောင်းပါင်း (guideline) အခြေခံသည်။ ဌာနအသစ်/ပယ်ဖျက်မှု အပါအဝင် နောက်ဆုံးအချက်အလက်ကို"
   },
   "Footer": {
     "copyright": "© 2026 UYOU. All rights reserved."

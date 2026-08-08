@@ -33,6 +33,17 @@ async function getPosts(universityId: string) {
   return data;
 }
 
+async function getDepartments(universityId: string) {
+  const { data, error } = await supabase
+    .from("university_departments")
+    .select("id, department_name_ko, department_name_en, guideline_year")
+    .eq("university_id", universityId)
+    .order("department_name_ko", { ascending: true });
+
+  if (error) throw error;
+  return data;
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -90,6 +101,8 @@ export default async function UniversityDetailPage({
   const displayDescription = translation?.description || university.description;
 
   const posts = await getPosts(university.id);
+  const departments = await getDepartments(university.id);
+  const guidelineYear = departments[0]?.guideline_year;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -155,6 +168,46 @@ export default async function UniversityDetailPage({
             {t("siteLink")}
           </a>
         </div>
+      </section>
+
+      {/* 모집 학과 */}
+      <section className="mt-8">
+        <h2 className="text-h3 font-semibold text-text-primary">
+          {t("departmentsTitle")}
+        </h2>
+
+        {departments.length === 0 ? (
+          <div className="mt-4 rounded-lg border border-border bg-surface p-8 text-center text-text-secondary">
+            {t("noDepartments")}
+          </div>
+        ) : (
+          <>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {departments.map((dept) => (
+                <span
+                  key={dept.id}
+                  className="rounded-full bg-primary-light px-3 py-1.5 text-sm text-primary"
+                >
+                  {locale === "ko"
+                    ? dept.department_name_ko
+                    : dept.department_name_en || dept.department_name_ko}
+                </span>
+              ))}
+            </div>
+
+            <p className="mt-4 text-caption text-text-tertiary">
+              {t("departmentsNote", { year: guidelineYear })}{" "}
+              <a
+                href={university.site_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                {t("siteLink")}
+              </a>
+            </p>
+          </>
+        )}
       </section>
 
       {/* 게시물 리스트 */}

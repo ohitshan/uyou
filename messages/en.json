@@ -20,7 +20,10 @@
     "addressLabel": "Address",
     "siteLink": "Visit official website",
     "noticeTitle": "Notices",
-    "noPosts": "No posts yet."
+    "noPosts": "No posts yet.",
+    "departmentsTitle": "Departments",
+    "noDepartments": "No department information available.",
+    "departmentsNote": "Based on the {year} admission guidelines. For the latest updates on new or discontinued departments, please check the"
   },
   "Footer": {
     "copyright": "© 2026 UYOU. All rights reserved."
