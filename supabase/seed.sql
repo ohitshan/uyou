@@ -787,3 +787,453 @@ on conflict (university_id, department_name_ko, guideline_year)
 do update set
   department_name_en = excluded.department_name_en,
   updated_at = now();
+
+  
+
+  insert into university_departments (
+  university_id,
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+select
+  u.id,
+  d.department_name_ko,
+  d.department_name_en,
+  d.guideline_year
+from universities u
+cross join (
+  values
+
+    -- 대양휴머니티칼리지
+    ('자유전공학부', 'Liberal Studies', 2027),
+
+    -- 인문과학대학
+    ('국어국문학과', 'Korean Language and Literature', 2027),
+    ('국제학부 - 영어데이터융합전공', 'International Studies - English Data Convergence', 2027),
+    ('국제학부 - 국제일본학전공', 'International Studies - International Japanese Studies', 2027),
+    ('국제학부 - 중국통상학전공', 'International Studies - Chinese Trade and Commerce', 2027),
+    ('역사학과', 'History', 2027),
+    ('교육학과', 'Education', 2027),
+
+    -- 사회과학대학
+    ('행정학과', 'Public Administration', 2027),
+    ('미디어커뮤니케이션학과', 'Media and Communication', 2027),
+    ('법학과', 'Law', 2027),
+
+    -- 경영경제대학
+    ('경영학부', 'Faculty of Business Administration', 2027),
+    ('경제학과', 'Economics', 2027),
+
+    -- 호텔관광대학
+    ('호텔관광외식경영학부 - 호텔관광경영학전공', 'Hotel, Tourism and Food Service Management - Hospitality and Tourism Management', 2027),
+    ('호텔관광외식경영학부 - 외식경영학전공', 'Hotel, Tourism and Food Service Management - Food Service Management', 2027),
+
+    -- 자연과학대학
+    ('수학통계학과', 'Mathematics and Statistics', 2027),
+    ('물리천문학과', 'Physics and Astronomy', 2027),
+    ('화학과', 'Chemistry', 2027),
+
+    -- 생명과학대학
+    ('생명시스템학부 - 식품생명공학전공', 'School of Biological Systems - Food Science and Biotechnology', 2027),
+    ('생명시스템학부 - 바이오융합공학전공', 'School of Biological Systems - Integrative Bioscience and Biotechnology', 2027),
+    ('생명시스템학부 - 바이오산업자원공학전공', 'School of Biological Systems - Bioresources Engineering', 2027),
+    ('스마트생명산업융합학과', 'Integrative Biological Sciences and Industry', 2027),
+
+    -- 인공지능융합대학
+    ('AI융합전자공학과', 'AI Convergence Electronic Engineering', 2027),
+    ('반도체시스템공학과', 'Semiconductor Systems Engineering', 2027),
+    ('컴퓨터공학과', 'Computer Science and Engineering', 2027),
+    ('정보보호학과', 'Computer and Information Security', 2027),
+    ('양자지능정보학과', 'Quantum Information Science and Engineering', 2027),
+
+    -- 창의소프트학부
+    ('창의소프트학부 - 디자인이노베이션전공', 'Faculty of Creative Studies - Design Innovation', 2027),
+    ('창의소프트학부 - 만화애니메이션텍전공', 'Faculty of Creative Studies - Comics & Animation Technology', 2027),
+
+    -- 첨단융합
+    ('인공지능데이터사이언스학과', 'Artificial Intelligence and Data Science', 2027),
+    ('AI로봇학과', 'Artificial Intelligence and Robotics', 2027),
+    ('지능정보융합학과', 'Intelligence and Information Convergence', 2027),
+    ('콘텐츠소프트웨어학과', 'Software', 2027),
+
+    -- 공과대학
+    ('건축공학과', 'Architectural Engineering', 2027),
+    ('건축학과(5년)', 'Architecture (5-year)', 2027),
+    ('건설환경공학과', 'Civil and Environmental Engineering', 2027),
+    ('환경융합공학과', 'Environment and Energy', 2027),
+    ('에너지자원공학과', 'Energy Resources and Geosystems Engineering', 2027),
+    ('기계공학과', 'Mechanical Engineering', 2027),
+
+    -- 우주항공시스템공학부
+    ('우주항공시스템공학부 - 우주항공공학전공', 'School of Aerospace System Engineering - Aerospace Engineering', 2027),
+    ('우주항공시스템공학부 - 지능형드론융합전공', 'School of Aerospace System Engineering - Intelligent Drone Convergence', 2027),
+
+    ('나노신소재공학과', 'Nano Technology and Advanced Materials Engineering', 2027),
+    ('양자원자력공학과', 'Quantum and Nuclear Engineering', 2027),
+
+    -- 예체능대학
+    ('회화과', 'Painting', 2027),
+    ('패션디자인학과', 'Fashion Design', 2027),
+    ('음악과', 'Music', 2027),
+    ('체육학과', 'Physical Education', 2027),
+    ('무용과', 'Dance', 2027),
+    ('영화예술학과', 'Film Art', 2027)
+
+) as d(
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+where u.slug = 'sejong-university'
+
+on conflict (university_id, department_name_ko, guideline_year)
+do update set
+  department_name_en = excluded.department_name_en,
+  updated_at = now();
+
+
+  insert into university_departments (
+  university_id,
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+select
+  u.id,
+  d.department_name_ko,
+  d.department_name_en,
+  d.guideline_year
+from universities u
+cross join (
+  values
+
+    -- ========================================
+    -- 인문대학
+    -- ========================================
+
+    ('국어국문학부 - 국어국문학',
+     'School of Korean Language and Literature - Korean Language and Literature',
+     2027),
+
+    ('국어국문학부 - 한국어교육·한국문화',
+     'School of Korean Language and Literature - Korean Language Education and Culture',
+     2027),
+
+    ('영어영문학과',
+     'Department of English Language and Literature',
+     2027),
+
+    ('유럽문화학부 - 독일어문학',
+     'School of European Languages and Cultures - German Language and Literature',
+     2027),
+
+    ('유럽문화학부 - 프랑스어문학',
+     'School of European Languages and Cultures - French Language and Literature',
+     2027),
+
+    ('유럽문화학부 - 러시아어문학',
+     'School of European Languages and Cultures - Russian Language and Literature',
+     2027),
+
+    ('아시아문화학부 - 일본어문학',
+     'School of Asian Languages and Cultures - Japanese Language and Literature',
+     2027),
+
+    ('아시아문화학부 - 중국어문학',
+     'School of Asian Languages and Cultures - Chinese Language and Literature',
+     2027),
+
+    ('철학과',
+     'Department of Philosophy',
+     2027),
+
+    ('역사학과',
+     'Department of History',
+     2027),
+
+
+    -- ========================================
+    -- 사회과학대학
+    -- ========================================
+
+    ('정치국제학과',
+     'Department of Political Science and International Relations',
+     2027),
+
+    ('공공인재학부',
+     'School of Public Service',
+     2027),
+
+    ('심리학과',
+     'Department of Psychology',
+     2027),
+
+    ('문헌정보학과',
+     'Department of Library and Information Science',
+     2027),
+
+    ('사회복지학부',
+     'School of Social Welfare',
+     2027),
+
+    ('미디어커뮤니케이션학부',
+     'School of Media and Communication',
+     2027),
+
+    ('사회학과',
+     'Department of Sociology',
+     2027),
+
+    ('도시계획·부동산학과',
+     'Department of Urban Planning and Real Estate',
+     2027),
+
+
+    -- ========================================
+    -- 자연과학대학
+    -- ========================================
+
+    ('물리학과',
+     'Department of Physics',
+     2027),
+
+    ('화학과',
+     'Department of Chemistry',
+     2027),
+
+    ('생명과학과',
+     'Department of Biological Sciences',
+     2027),
+
+    ('수학과',
+     'Department of Mathematics',
+     2027),
+
+
+    -- ========================================
+    -- 공과대학
+    -- ========================================
+
+    ('사회기반시스템공학부 - 건설환경플랜트공학',
+     'School of Civil and Infrastructure Engineering - Civil, Environmental and Plant Engineering',
+     2027),
+
+    ('사회기반시스템공학부 - 도시시스템공학',
+     'School of Civil and Infrastructure Engineering - Urban Systems Engineering',
+     2027),
+
+    ('건축학부 - 건축학 5년제',
+     'School of Architecture and Building Science - Architecture (5-year)',
+     2027),
+
+    ('건축학부 - 건축공학 4년제',
+     'School of Architecture and Building Science - Architectural Engineering (4-year)',
+     2027),
+
+    ('화학공학과',
+     'Department of Chemical Engineering',
+     2027),
+
+    ('기계공학부',
+     'School of Mechanical Engineering',
+     2027),
+
+
+    -- ========================================
+    -- 창의ICT공과대학
+    -- ========================================
+
+    ('전자전기공학부',
+     'School of Electrical and Electronics Engineering',
+     2027),
+
+    ('융합공학부 - 나노소재공학',
+     'School of Integrative Engineering - Nano Materials Engineering',
+     2027),
+
+    ('융합공학부 - 바이오메디컬공학',
+     'School of Integrative Engineering - Biomedical Engineering',
+     2027),
+
+
+    -- ========================================
+    -- 소프트웨어대학
+    -- ========================================
+
+    ('소프트웨어학부',
+     'School of Computer Science and Engineering',
+     2027),
+
+
+    -- ========================================
+    -- 경영경제대학
+    -- ========================================
+
+    ('경영학부 - 경영학',
+     'School of Business Administration - Business Administration',
+     2027),
+
+    ('경제학부',
+     'School of Economics',
+     2027),
+
+    ('응용통계학과',
+     'Department of Applied Statistics',
+     2027),
+
+    ('광고홍보학부 - 글로벌광고PR',
+     'School of Advertising and Public Relations - Global Advertising and PR',
+     2027),
+
+    ('국제물류학과',
+     'Department of International Logistics',
+     2027),
+
+
+    -- ========================================
+    -- 의과대학
+    -- ========================================
+
+    ('의학부',
+     'College of Medicine - Medicine',
+     2027),
+
+
+    -- ========================================
+    -- 가상융합대학
+    -- ========================================
+
+    ('게임융합학과',
+     'Department of Game Convergence',
+     2027),
+
+
+    -- ========================================
+    -- 생명공학대학
+    -- ========================================
+
+    ('생명자원공학부 - 동물생명공학',
+     'School of Animal and Plant Resources - Animal Biotechnology',
+     2027),
+
+    ('생명자원공학부 - 식물생명공학',
+     'School of Animal and Plant Resources - Plant Biotechnology',
+     2027),
+
+    ('식품공학부 - 식품공학',
+     'School of Food Science and Technology - Food Science and Engineering',
+     2027),
+
+    ('식품공학부 - 식품영양학',
+     'School of Food Science and Technology - Food and Nutrition',
+     2027),
+
+
+    -- ========================================
+    -- 예술대학
+    -- ========================================
+
+    ('공연영상창작학부 - 연극(연기)',
+     'School of Performing Arts and Media - Theatre (Acting)',
+     2027),
+
+    ('공연영상창작학부 - 영화',
+     'School of Performing Arts and Media - Film',
+     2027),
+
+    ('공연영상창작학부 - 사진',
+     'School of Performing Arts and Media - Photography',
+     2027),
+
+    ('공연영상창작학부 - 무용(한국/현대/발레)',
+     'School of Performing Arts and Media - Dance (Korean/Contemporary/Ballet)',
+     2027),
+
+    ('디자인학부 - 공예',
+     'School of Design - Crafts',
+     2027),
+
+    ('디자인학부 - 산업디자인',
+     'School of Design - Industrial Design',
+     2027),
+
+    ('디자인학부 - 시각디자인',
+     'School of Design - Visual Communication Design',
+     2027),
+
+    ('디자인학부 - 실내환경디자인',
+     'School of Design - Housing and Interior Design',
+     2027),
+
+    ('디자인학부 - 패션',
+     'School of Design - Fashion Design',
+     2027),
+
+    ('음악학부 - 작곡',
+     'School of Music - Composition',
+     2027),
+
+    ('음악학부 - 성악',
+     'School of Music - Vocal Music',
+     2027),
+
+    ('음악학부 - 피아노',
+     'School of Music - Piano',
+     2027),
+
+    ('음악학부 - 관현악',
+     'School of Music - Orchestral Music',
+     2027),
+
+    ('전통예술학부 - 음악예술',
+     'School of Traditional Arts - Korean Music Arts',
+     2027),
+
+    ('전통예술학부 - 연희예술',
+     'School of Traditional Arts - Traditional Performing Arts',
+     2027),
+
+    ('글로벌예술학부 - TV방송연예',
+     'School of Global Arts - TV Broadcasting and Entertainment',
+     2027),
+
+    ('글로벌예술학부 - 실용음악',
+     'School of Global Arts - Applied Music',
+     2027),
+
+    ('글로벌예술학부 - 게임콘텐츠·애니메이션',
+     'School of Global Arts - Game Contents and Animation',
+     2027),
+
+
+    -- ========================================
+    -- 체육대학
+    -- ========================================
+
+    ('스포츠과학부 - 생활·레저스포츠/스포츠산업',
+     'School of Sport Sciences - Leisure and Sports / Sports Industry',
+     2027),
+
+
+    -- ========================================
+    -- 예술공학대학
+    -- ========================================
+
+    ('예술공학부',
+     'School of Art and Technology',
+     2027)
+
+) as d(
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+where u.slug = 'chungang-university'
+
+on conflict (university_id, department_name_ko, guideline_year)
+do update set
+  department_name_en = excluded.department_name_en,
+  updated_at = now();
+
+  
