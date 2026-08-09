@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { supabase } from "@/lib/supabase";
 import { PostCard } from "@/components/post-card";
+import { DepartmentList } from "@/components/department-list";
 
 export const revalidate = 3600;
 
@@ -181,32 +182,14 @@ export default async function UniversityDetailPage({
             {t("noDepartments")}
           </div>
         ) : (
-          <>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {departments.map((dept) => (
-                <span
-                  key={dept.id}
-                  className="rounded-full bg-primary-light px-3 py-1.5 text-sm text-primary"
-                >
-                  {locale === "ko"
-                    ? dept.department_name_ko
-                    : dept.department_name_en || dept.department_name_ko}
-                </span>
-              ))}
-            </div>
-
-            <p className="mt-4 text-caption text-text-tertiary">
-              {t("departmentsNote", { year: guidelineYear })}{" "}
-              <a
-                href={university.site_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                {t("siteLink")}
-              </a>
-            </p>
-          </>
+          <div className="mt-4">
+            <DepartmentList
+              departments={departments}
+              locale={locale}
+              guidelineYear={guidelineYear}
+              siteUrl={university.site_url}
+            />
+          </div>
         )}
       </section>
 

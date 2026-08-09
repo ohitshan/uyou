@@ -23,6 +23,9 @@
     "noPosts": "ကြေညာချက်များ မရှိသေးပါ။",
     "departmentsTitle": "ဌာန/ဘာသာရပ်များ",
     "noDepartments": "ဌာနဆိုင်ရာ အချက်အလက် မရှိသေးပါ။",
+    "departmentSearchPlaceholder": "ဌာနအမည်ဖြင့် ရှာဖွေပါ",
+    "departmentCount": "{count}",
+    "noDepartmentsMatch": "ရှာဖွေမှုနှင့် ကိုက်ညီသော ဌာန မတွေ့ပါ။",
     "departmentsNote": "{year} ခုနှစ် မောင်းပါင်း (guideline) အခြေခံသည်။ ဌာနအသစ်/ပယ်ဖျက်မှု အပါအဝင် နောက်ဆုံးအချက်အလက်ကို"
   },
   "Footer": {

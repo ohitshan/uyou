@@ -23,6 +23,9 @@
     "noPosts": "No posts yet.",
     "departmentsTitle": "Departments",
     "noDepartments": "No department information available.",
+    "departmentSearchPlaceholder": "Search by department name",
+    "departmentCount": "{count}",
+    "noDepartmentsMatch": "No matching departments.",
     "departmentsNote": "Based on the {year} admission guidelines. For the latest updates on new or discontinued departments, please check the"
   },
   "Footer": {
