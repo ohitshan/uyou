@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { supabase } from "@/lib/supabase";
 import { UniversityList } from "@/components/university-list";
 import { UniversityRanking } from "@/components/university-ranking";
+import { DepartmentSearch } from "@/components/department-search";
 import { Button } from "@/components/ui/button";
 
 export const revalidate = 3600;
@@ -120,6 +121,9 @@ export default async function Page({
           </Button>
         </div>
       </div>
+
+      {/* 학과 검색 (전체 대학 통합) */}
+      <DepartmentSearch locale={locale} />
 
       {/* 외국인 유학생 수 Top 10 */}
       {rankings.length > 0 && (
