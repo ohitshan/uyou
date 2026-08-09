@@ -1236,4 +1236,659 @@ do update set
   department_name_en = excluded.department_name_en,
   updated_at = now();
 
-  
+  insert into university_departments (
+  university_id,
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+select
+  u.id,
+  d.department_name_ko,
+  d.department_name_en,
+  d.guideline_year
+from universities u
+cross join (
+  values
+
+    -- ========================================
+    -- 공과대학
+    -- ========================================
+
+    ('건축학부(5년제)',
+     'School of Architecture (5-year)',
+     2028),
+
+    ('건축공학부(4년제)',
+     'School of Architectural Engineering (4-year)',
+     2028),
+
+    ('건설환경공학과',
+     'Department of Civil and Environmental Engineering',
+     2028),
+
+    ('도시공학과',
+     'Department of Urban Engineering',
+     2028),
+
+    ('자원환경공학과',
+     'Department of Earth Resources and Environmental Engineering',
+     2028),
+
+    ('융합전자공학부',
+     'School of Electronic Engineering',
+     2028),
+
+    ('컴퓨터소프트웨어학부',
+     'School of Computer Science and Software',
+     2028),
+
+    ('정보시스템학과',
+     'Department of Information Systems',
+     2028),
+
+    ('전기·생체공학부 - 전기공학',
+     'School of Electrical and Biomedical Engineering - Electrical Engineering',
+     2028),
+
+    ('전기·생체공학부 - 바이오메디컬공학',
+     'School of Electrical and Biomedical Engineering - Biomedical Engineering',
+     2028),
+
+    ('신소재공학부',
+     'School of Materials Science and Engineering',
+     2028),
+
+    ('화학공학과',
+     'Department of Chemical Engineering',
+     2028),
+
+    ('생명공학과',
+     'Department of Biological Engineering',
+     2028),
+
+    ('유기나노공학과',
+     'Department of Organic and Nano Engineering',
+     2028),
+
+    ('에너지공학과',
+     'Department of Energy Engineering',
+     2028),
+
+    ('기계공학부',
+     'School of Mechanical Engineering',
+     2028),
+
+    ('원자력공학과',
+     'Department of Nuclear Engineering',
+     2028),
+
+    ('산업공학과',
+     'Department of Industrial Engineering',
+     2028),
+
+    ('미래자동차공학과',
+     'Department of Automotive Engineering',
+     2028),
+
+    ('데이터사이언스학부(영어과정)',
+     'School of Data Science (English Program)',
+     2028),
+
+
+    -- ========================================
+    -- 인문과학대학
+    -- ========================================
+
+    ('국어국문학과',
+     'Department of Korean Language and Literature',
+     2028),
+
+    ('중어중문학과',
+     'Department of Chinese Language and Literature',
+     2028),
+
+    ('영어영문학과',
+     'Department of English Language and Literature',
+     2028),
+
+    ('독어독문학과',
+     'Department of German Language and Literature',
+     2028),
+
+    ('사학과',
+     'Department of History',
+     2028),
+
+    ('철학과',
+     'Department of Philosophy',
+     2028),
+
+
+    -- ========================================
+    -- 사회과학대학
+    -- ========================================
+
+    ('정치외교학과',
+     'Department of Political Science and International Studies',
+     2028),
+
+    ('사회학과',
+     'Department of Sociology',
+     2028),
+
+    ('미디어커뮤니케이션학과',
+     'Department of Media and Communication',
+     2028),
+
+    ('관광학부',
+     'School of Tourism',
+     2028),
+
+
+    -- ========================================
+    -- 자연과학대학
+    -- ========================================
+
+    ('수학과',
+     'Department of Mathematics',
+     2028),
+
+    ('물리학과',
+     'Department of Physics',
+     2028),
+
+    ('화학과',
+     'Department of Chemistry',
+     2028),
+
+    ('생명과학과',
+     'Department of Life Science',
+     2028),
+
+
+    -- ========================================
+    -- 정책과학대학
+    -- ========================================
+
+    ('정책학과',
+     'Department of Policy Studies',
+     2028),
+
+    ('행정학과',
+     'Department of Public Administration',
+     2028),
+
+
+    -- ========================================
+    -- 경제금융대학
+    -- ========================================
+
+    ('경제금융학부',
+     'School of Economics and Finance',
+     2028),
+
+
+    -- ========================================
+    -- 경영대학
+    -- ========================================
+
+    ('경영학부',
+     'School of Business',
+     2028),
+
+    ('경영학부(영어과정)',
+     'School of Business (English Program)',
+     2028),
+
+    ('파이낸스경영학과',
+     'Department of Finance',
+     2028),
+
+
+    -- ========================================
+    -- 사범대학
+    -- 2028학년도부터 외국인 신입생 모집
+    -- ========================================
+
+    ('국어교육과',
+     'Department of Korean Language Education',
+     2028),
+
+
+    -- ========================================
+    -- 생활과학대학
+    -- ========================================
+
+    ('의류학과(인문)',
+     'Department of Clothing and Textiles (Humanities)',
+     2028),
+
+    ('식품영양학과(자연)',
+     'Department of Food and Nutrition (Natural Sciences)',
+     2028),
+
+    ('실내건축디자인학과(인문)',
+     'Department of Interior Architecture Design (Humanities)',
+     2028),
+
+
+    -- ========================================
+    -- 음악대학
+    -- ========================================
+
+    ('성악과',
+     'Department of Vocal Music',
+     2028),
+
+    ('작곡과',
+     'Department of Composition',
+     2028),
+
+    ('피아노과',
+     'Department of Piano',
+     2028),
+
+    ('관현악과 - 바이올린',
+     'Department of Orchestral Music - Violin',
+     2028),
+
+    ('관현악과 - 비올라',
+     'Department of Orchestral Music - Viola',
+     2028),
+
+    ('관현악과 - 첼로',
+     'Department of Orchestral Music - Cello',
+     2028),
+
+    ('관현악과 - 더블베이스',
+     'Department of Orchestral Music - Double Bass',
+     2028),
+
+    ('관현악과 - 플루트',
+     'Department of Orchestral Music - Flute',
+     2028),
+
+    ('관현악과 - 오보에',
+     'Department of Orchestral Music - Oboe',
+     2028),
+
+    ('관현악과 - 클라리넷',
+     'Department of Orchestral Music - Clarinet',
+     2028),
+
+    ('관현악과 - 바순',
+     'Department of Orchestral Music - Bassoon',
+     2028),
+
+    ('관현악과 - 색소폰',
+     'Department of Orchestral Music - Saxophone',
+     2028),
+
+    ('관현악과 - 호른',
+     'Department of Orchestral Music - Horn',
+     2028),
+
+    ('관현악과 - 트럼펫',
+     'Department of Orchestral Music - Trumpet',
+     2028),
+
+    ('관현악과 - 테너트롬본',
+     'Department of Orchestral Music - Tenor Trombone',
+     2028),
+
+    ('관현악과 - 베이스트롬본',
+     'Department of Orchestral Music - Bass Trombone',
+     2028),
+
+    ('관현악과 - 튜바',
+     'Department of Orchestral Music - Tuba',
+     2028),
+
+    ('관현악과 - 타악기',
+     'Department of Orchestral Music - Percussion',
+     2028),
+
+    ('국악과 - 가야금',
+     'Department of Korean Traditional Music - Gayageum',
+     2028),
+
+    ('국악과 - 거문고',
+     'Department of Korean Traditional Music - Geomungo',
+     2028),
+
+    ('국악과 - 피리',
+     'Department of Korean Traditional Music - Piri',
+     2028),
+
+    ('국악과 - 대금',
+     'Department of Korean Traditional Music - Daegeum',
+     2028),
+
+    ('국악과 - 해금',
+     'Department of Korean Traditional Music - Haegeum',
+     2028),
+
+    ('국악과 - 아쟁',
+     'Department of Korean Traditional Music - Ajaeng',
+     2028),
+
+    ('국악과 - 타악',
+     'Department of Korean Traditional Music - Percussion',
+     2028),
+
+    ('국악과 - 성악(정가)',
+     'Department of Korean Traditional Music - Vocal (Jeongga)',
+     2028),
+
+    ('국악과 - 성악(판소리)',
+     'Department of Korean Traditional Music - Vocal (Pansori)',
+     2028),
+
+    ('국악과 - 성악(경서도소리)',
+     'Department of Korean Traditional Music - Vocal (Gyeongseo-do Traditional Song)',
+     2028),
+
+    ('국악과 - 작곡',
+     'Department of Korean Traditional Music - Composition',
+     2028),
+
+    ('국악과 - 이론',
+     'Department of Korean Traditional Music - Theory',
+     2028),
+
+
+    -- ========================================
+    -- 예술·체육대학
+    -- ========================================
+
+    ('스포츠산업과학부 - 스포츠매니지먼트',
+     'School of Sport Industry and Science - Sport Management',
+     2028),
+
+    ('스포츠산업과학부 - 스포츠사이언스',
+     'School of Sport Industry and Science - Sport Science',
+     2028),
+
+    ('연극영화학과 - 영화',
+     'Department of Theatre and Film - Film',
+     2028),
+
+    ('연극영화학과 - 연출 및 스탭',
+     'Department of Theatre and Film - Directing and Staff',
+     2028),
+
+    ('연극영화학과 - 연기',
+     'Department of Theatre and Film - Acting',
+     2028),
+
+    ('무용학과 - 한국무용',
+     'Department of Dance - Korean Dance',
+     2028),
+
+    ('무용학과 - 현대무용',
+     'Department of Dance - Contemporary Dance',
+     2028),
+
+    ('무용학과 - 발레',
+     'Department of Dance - Ballet',
+     2028),
+
+
+    -- ========================================
+    -- 국제대학
+    -- ========================================
+
+    ('국제학부(영어과정)',
+     'School of International Studies (English Program)',
+     2028),
+
+    ('글로벌콘텐츠융합학부',
+     'School of Global Content Convergence',
+     2028)
+
+) as d(
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+where u.slug = 'hanyang-university'
+
+on conflict (university_id, department_name_ko, guideline_year)
+do update set
+  department_name_en = excluded.department_name_en,
+  updated_at = now();
+
+
+insert into university_departments (
+  university_id,
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+select
+  u.id,
+  d.department_name_ko,
+  d.department_name_en,
+  d.guideline_year
+from universities u
+cross join (
+  values
+
+    -- ========================================
+    -- 인문대학
+    -- ========================================
+
+    ('국어국문학과',
+     'Department of Korean Language and Literature',
+     2028),
+
+    ('사학과',
+     'Department of History',
+     2028),
+
+    ('철학과',
+     'Department of Philosophy',
+     2028),
+
+    ('종교학과',
+     'Department of Religious Studies',
+     2028),
+
+    ('영문학부(영미어문전공)',
+     'School of English - English and American Language and Literature',
+     2028),
+
+    ('유럽문화학과',
+     'Department of European Culture',
+     2028),
+
+    ('중국문화학과',
+     'Department of Chinese Culture',
+     2028),
+
+    ('인문학기반자유전공학부',
+     'School of Liberal Arts and Humanities',
+     2028),
+
+
+    -- ========================================
+    -- 사회과학대학
+    -- ========================================
+
+    ('사회학과',
+     'Department of Sociology',
+     2028),
+
+    ('정치외교학과',
+     'Department of Political Science and Diplomacy',
+     2028),
+
+    ('심리학과',
+     'Department of Psychology',
+     2028),
+
+
+    -- ========================================
+    -- 경제대학
+    -- ========================================
+
+    ('경제학과',
+     'Department of Economics',
+     2028),
+
+
+    -- ========================================
+    -- 경영대학
+    -- ========================================
+
+    ('경영학부(경영학전공)',
+     'School of Business - Business Administration',
+     2028),
+
+
+    -- ========================================
+    -- 로욜라국제대학
+    -- ========================================
+
+    ('글로벌한국학부(한국언어문화전공)',
+     'School of Global Korean Studies - Korean Language and Culture',
+     2028),
+
+    ('글로벌융합학부(글로벌경영전공)',
+     'School of Global Interdisciplinary Studies - Global Business',
+     2028),
+
+    ('글로벌융합학부(글로벌경제전공)',
+     'School of Global Interdisciplinary Studies - Global Economics',
+     2028),
+
+    ('글로벌융합학부(글로벌미디어전공)',
+     'School of Global Interdisciplinary Studies - Global Media',
+     2028),
+
+
+    -- ========================================
+    -- 지식융합미디어대학
+    -- ========================================
+
+    ('신문방송학과',
+     'Department of Journalism and Mass Communication',
+     2028),
+
+    ('미디어&엔터테인먼트학과',
+     'Department of Media and Entertainment',
+     2028),
+
+    ('아트&테크놀로지학과',
+     'Department of Art & Technology',
+     2028),
+
+
+    -- ========================================
+    -- 자연과학대학
+    -- ========================================
+
+    ('수학과',
+     'Department of Mathematics',
+     2028),
+
+    ('물리학과',
+     'Department of Physics',
+     2028),
+
+    ('화학과',
+     'Department of Chemistry',
+     2028),
+
+    ('생명과학과',
+     'Department of Life Sciences',
+     2028),
+
+    ('SCIENCE기반자유전공학부',
+     'School of Science-Based Liberal Studies',
+     2028),
+
+
+
+    -- ========================================
+    -- 공과대학
+    -- ========================================
+
+    ('전자공학과',
+     'Department of Electronic Engineering',
+     2028),
+
+    ('화공생명공학과',
+     'Department of Chemical and Biomolecular Engineering',
+     2028),
+
+    ('기계공학과',
+     'Department of Mechanical Engineering',
+     2028),
+
+    ('반도체공학과',
+     'Department of Semiconductor Engineering',
+     2028),
+
+
+    -- ========================================
+    -- 소프트웨어융합대학
+    -- ========================================
+
+    ('컴퓨터공학과',
+     'Department of Computer Science and Engineering',
+     2028),
+
+    ('인공지능학과',
+     'Department of Artificial Intelligence',
+     2028),
+
+    ('AI기반자유전공학부',
+     'School of AI-Based Liberal Studies',
+     2028),
+
+
+    -- ========================================
+    -- 영어트랙
+    -- ========================================
+
+    ('영문학부(미국문화전공)',
+     'School of English - American Culture',
+     2028),
+
+    ('경제학과',
+     'Department of Economics',
+     2028),
+
+    ('경영학부(경영학전공)',
+     'School of Business - Business Administration',
+     2028),
+
+    ('글로벌한국학부(글로벌한국학전공)',
+     'School of Global Korean Studies - Global Korean Studies',
+     2028),
+
+    ('게페르트국제학부(국제관계전공)',
+     'Gephardt Institute of International Studies - International Relations',
+     2028),
+
+    ('게페르트국제학부(국제통상전공)',
+     'Gephardt Institute of International Studies - International Trade',
+     2028),
+
+    ('게페르트국제학부(아시아전공)',
+     'Gephardt Institute of International Studies - Asian Studies',
+     2028)
+
+) as d(
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+where u.slug = 'sogang-university'
+
+on conflict (university_id, department_name_ko, guideline_year)
+do update set
+  department_name_en = excluded.department_name_en,
+  updated_at = now();
