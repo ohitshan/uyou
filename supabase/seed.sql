@@ -1695,7 +1695,7 @@ cross join (
      'Department of Religious Studies',
      2028),
 
-    ('영문학부(영미어문전공)',
+    ('영문학부 - 영미어문전공',
      'School of English - English and American Language and Literature',
      2028),
 
@@ -1742,7 +1742,7 @@ cross join (
     -- 경영대학
     -- ========================================
 
-    ('경영학부(경영학전공)',
+    ('경영학부 - 경영학전공',
      'School of Business - Business Administration',
      2028),
 
@@ -1751,19 +1751,19 @@ cross join (
     -- 로욜라국제대학
     -- ========================================
 
-    ('글로벌한국학부(한국언어문화전공)',
+    ('글로벌한국학부 - 한국언어문화전공',
      'School of Global Korean Studies - Korean Language and Culture',
      2028),
 
-    ('글로벌융합학부(글로벌경영전공)',
+    ('글로벌융합학부 - 글로벌경영전공',
      'School of Global Interdisciplinary Studies - Global Business',
      2028),
 
-    ('글로벌융합학부(글로벌경제전공)',
+    ('글로벌융합학부 - 글로벌경제전공',
      'School of Global Interdisciplinary Studies - Global Economics',
      2028),
 
-    ('글로벌융합학부(글로벌미디어전공)',
+    ('글로벌융합학부 - 글로벌미디어전공',
      'School of Global Interdisciplinary Studies - Global Media',
      2028),
 
@@ -1853,31 +1853,31 @@ cross join (
     -- 영어트랙
     -- ========================================
 
-    ('영문학부(미국문화전공)',
+    ('영문학부 - 미국문화전공',
      'School of English - American Culture',
      2028),
 
-    ('경제학과',
-     'Department of Economics',
+    ('경제학과(영어트랙)',
+     'Department of Economics (English Track)',
      2028),
 
-    ('경영학부(경영학전공)',
-     'School of Business - Business Administration',
+    ('경영학부 - 경영학전공(영어트랙)',
+     'School of Business - Business Administration (English Track)',
      2028),
 
-    ('글로벌한국학부(글로벌한국학전공)',
+    ('글로벌한국학부 - 글로벌한국학전공',
      'School of Global Korean Studies - Global Korean Studies',
      2028),
 
-    ('게페르트국제학부(국제관계전공)',
+    ('게페르트국제학부 - 국제관계전공',
      'Gephardt Institute of International Studies - International Relations',
      2028),
 
-    ('게페르트국제학부(국제통상전공)',
+    ('게페르트국제학부 - 국제통상전공',
      'Gephardt Institute of International Studies - International Trade',
      2028),
 
-    ('게페르트국제학부(아시아전공)',
+    ('게페르트국제학부 - 아시아전공',
      'Gephardt Institute of International Studies - Asian Studies',
      2028)
 
