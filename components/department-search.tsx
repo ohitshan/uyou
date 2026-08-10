@@ -58,21 +58,25 @@ export function DepartmentSearch({ locale }: { locale: string }) {
         {t("deptSearchTitle")}
       </h2>
 
-      <div className="flex gap-2">
+      <form
+        className="flex gap-2"
+        onSubmit={(e) => {
+          e.preventDefault();
+          runSearch();
+        }}
+      >
         <input
-          type="text"
+          type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") runSearch();
-          }}
           placeholder={t("deptSearchPlaceholder")}
           className="h-11 flex-1 rounded-md border border-border-strong bg-surface px-3 text-body-lg text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none focus:ring-2 focus:ring-focus-ring"
         />
-        <Button size="lg" onClick={runSearch} disabled={loading}>
+
+        <Button type="submit" size="lg" disabled={loading}>
           {t("deptSearchButton")}
         </Button>
-      </div>
+      </form>
 
       {query.trim().length > 0 && query.trim().length < 2 && (
         <p className="mt-2 text-sm text-text-tertiary">{t("deptSearchHint")}</p>
