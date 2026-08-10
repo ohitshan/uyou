@@ -1892,3 +1892,400 @@ on conflict (university_id, department_name_ko, guideline_year)
 do update set
   department_name_en = excluded.department_name_en,
   updated_at = now();
+
+
+insert into university_departments (
+  university_id,
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+select
+  u.id,
+  d.department_name_ko,
+  d.department_name_en,
+  d.guideline_year
+from universities u
+cross join (
+  values
+    -- 계열모집
+    ('자유전공계열', 'Exploratory Studies', 2028),
+    ('인문과학계열', 'Humanities', 2028),
+    ('사회과학계열', 'Social Sciences', 2028),
+    ('자연과학계열', 'Natural Sciences', 2028),
+    ('공학계열', 'Engineering', 2028),
+
+    -- 학과모집
+    ('휴먼사이언스·사회 융합전공', 'Human Science and Society', 2028),
+    ('글로벌경제학과', 'Global Economics', 2028),
+    ('경영학과', 'Business Administration', 2028),
+    ('글로벌경영학과', 'Global Business Administration', 2028),
+    ('영상학과', 'Film·Television and Multimedia', 2028),
+    ('연기예술학과', 'Theatre', 2028),
+    ('의상학과', 'Fashion Design', 2028),
+    ('전자전기정보공학부', 'Electronic·Electrical and Informative Engineering', 2028),
+    ('컴퓨터공학과', 'Computer Science and Engineering', 2028),
+    ('건축학과(5년제)', 'Architecture(5-year curriculum)', 2028),
+    ('스포츠과학과', 'Sport Science', 2028),
+    ('글로벌바이오메디컬공학과', 'Biomedical Engineering', 2028),
+
+    -- 전공예약
+    ('화학공학부', 'Chemical Engineering', 2028),
+    ('신소재공학부', 'Advanced Materials Science and Engineering', 2028),
+    ('기계공학부', 'Mechanical Engineering', 2028),
+    ('나노공학과', 'Nano Engineering', 2028)
+
+) as d(
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+where u.slug = 'sungkyunkwan-university'
+
+on conflict (university_id, department_name_ko, guideline_year)
+do update set
+  department_name_en = excluded.department_name_en,
+  updated_at = now();
+
+  insert into university_departments (
+  university_id,
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+select
+  u.id,
+  d.department_name_ko,
+  d.department_name_en,
+  d.guideline_year
+from universities u
+cross join (
+  values
+
+    -- ========================================
+    -- 서울캠퍼스
+    -- ========================================
+
+    ('국어국문학과',
+     'Department of Korean Language and Literature',
+     2026),
+
+    ('사학과',
+     'Department of History',
+     2026),
+
+    ('철학과',
+     'Department of Philosophy',
+     2026),
+
+    ('영어영문학과',
+     'Department of English Language and Linguistics',
+     2026),
+
+    ('응용영어통번역학과',
+     'Department of Applied English Interpretation and Translation',
+     2026),
+
+    ('글로벌비즈니스 전공',
+     'Global Business',
+     2026),
+
+    ('정치외교학과',
+     'Department of Political Science',
+     2026),
+
+    ('행정학과',
+     'Department of Public Administration',
+     2026),
+
+    ('사회학과',
+     'Department of Sociology',
+     2026),
+
+    ('경제학과',
+     'Department of Economics',
+     2026),
+
+    ('무역학과',
+     'Department of International Business and Trade',
+     2026),
+
+    ('미디어학과',
+     'Department of Media',
+     2026),
+
+    ('경영회계계열 - 경영학과',
+     'Division of Management and Accounting - Business Administration',
+     2026),
+
+    ('경영회계계열 - 회계학과',
+     'Division of Management and Accounting - Accounting',
+     2026),
+
+    ('경영학과[영어트랙]',
+     'Department of Business Administration [English Track]',
+     2026),
+
+    ('Hospitality경영학과',
+     'Department of Hospitality Management',
+     2026),
+
+    ('글로벌Hospitality·관광학과[영어트랙]',
+     'Department of Global Hospitality & Tourism Management [English Track]',
+     2026),
+
+    ('조리&푸드디자인학과',
+     'Department of Culinary Arts & Food Design Management',
+     2026),
+
+    ('관광·엔터테인먼트학부',
+     'School of Tourism and Entertainment',
+     2026),
+
+    ('아동가족학과',
+     'Department of Child and Family Studies',
+     2026),
+
+    ('주거환경학과',
+     'Department of Housing and Interior Design',
+     2026),
+
+    ('의상학과',
+     'Department of Clothing and Textiles',
+     2026),
+
+    ('식품영양학과',
+     'Department of Food and Nutrition',
+     2026),
+
+    ('수학과',
+     'Department of Mathematics',
+     2026),
+
+    ('물리학과',
+     'Department of Physics',
+     2026),
+
+    ('화학과',
+     'Department of Chemistry',
+     2026),
+
+    ('생물학과',
+     'Department of Biology',
+     2026),
+
+    ('지리학과',
+     'Department of Geography',
+     2026),
+
+    ('미래정보디스플레이학부',
+     'Department of Future Information Display',
+     2026),
+
+    -- ========================================
+    -- 국제캠퍼스
+    -- ========================================
+
+    ('기계공학부 - 기계공학전공',
+     'School of Mechanical Engineering - Mechanical Engineering',
+     2026),
+
+    ('기계공학부 - 지능로봇공학전공',
+     'School of Mechanical Engineering - Intelligent Robotics Engineering',
+     2026),
+
+    ('기계공학부 - 항공우주모빌리티전공',
+     'School of Mechanical Engineering - Aerospace Mobility Engineering',
+     2026),
+
+    ('산업경영공학과',
+     'Department of Industrial & Management Engineering',
+     2026),
+
+    ('원자력공학과',
+     'Department of Nuclear Engineering',
+     2026),
+
+    ('화학공학과',
+     'Department of Chemical Engineering',
+     2026),
+
+    ('신소재공학과',
+     'Department of Advanced Materials Engineering',
+     2026),
+
+    ('사회기반시스템공학과',
+     'Department of Civil Engineering',
+     2026),
+
+    ('건축공학과',
+     'Department of Architectural Engineering',
+     2026),
+
+    ('환경학 및 환경공학과',
+     'Department of Environmental Science and Engineering',
+     2026),
+
+    ('전자공학부 - 전자공학과',
+     'School of Electronic Engineering - Electronic Engineering',
+     2026),
+
+    ('생체의공학과',
+     'Department of Biomedical Engineering',
+     2026),
+
+    ('컴퓨터공학부 - 컴퓨터공학과',
+     'Department of Computer Engineering - Computer Engineering',
+     2026),
+
+    ('컴퓨터공학부 - 인공지능학과',
+     'Department of Computer Engineering - Artificial Intelligence',
+     2026),
+
+    ('소프트웨어융합학과',
+     'Department of Software Convergence',
+     2026),
+
+    ('응용수학과',
+     'Department of Applied Mathematics',
+     2026),
+
+    ('응용물리학과',
+     'Department of Applied Physics',
+     2026),
+
+    ('응용화학과',
+     'Department of Applied Chemistry',
+     2026),
+
+    ('우주과학과',
+     'Department of Astronomy and Space Science',
+     2026),
+
+    ('유전생명공학과',
+     'Department of Genetics and Biotechnology',
+     2026),
+
+    ('식품생명공학과',
+     'Department of Food Science & BIO Technology',
+     2026),
+
+    ('융합바이오·신소재공학과',
+     'Department of Convergent Biotechnology and Advanced Materials Science',
+     2026),
+
+    ('스마트팜과학과',
+     'Department of Smart-Farm Science',
+     2026),
+
+    ('국제학과[영어트랙]',
+     'Department of International Studies [English Track]',
+     2026),
+
+    ('아시아학과[영어트랙]',
+     'Department of Asian Studies [English Track]',
+     2026),
+
+    ('프랑스어학과',
+     'Department of French',
+     2026),
+
+    ('스페인어학과',
+     'Department of Spanish',
+     2026),
+
+    ('러시아어학과',
+     'Department of Russian',
+     2026),
+
+    ('중국어학과',
+     'Department of Chinese',
+     2026),
+
+    ('일본어학과',
+     'Department of Japanese',
+     2026),
+
+    ('한국어학과 - 한국어학전공',
+     'Department of Korean - Department of Korean Language',
+     2026),
+
+    ('한국어학과 - 한국콘텐츠학전공',
+     'Department of Korean - Korean Contents Studies',
+     2026),
+
+    ('글로벌커뮤니케이션학부 - 영미언어문학',
+     'Department of Global Communication - British-American Language and Literature',
+     2026),
+
+    ('글로벌커뮤니케이션학부 - 영미문화전공',
+     'Department of Global Communication - British-American Culture',
+     2026),
+
+    ('산업디자인학과',
+     'Department of Industrial Design',
+     2026),
+
+    ('시각디자인학과',
+     'Department of Visual Design',
+     2026),
+
+    ('환경조경디자인학과',
+     'Department of Landscape Architecture',
+     2026),
+
+    ('의류디자인학과',
+     'Department of Textile and Clothing Design',
+     2026),
+
+    ('디지털콘텐츠학과',
+     'Department of Digital Contents',
+     2026),
+
+    ('도예학과',
+     'Department of Ceramics',
+     2026),
+
+    ('Post Modern 음악학과',
+     'Department of Postmodern Music',
+     2026),
+
+    ('연극영화학과',
+     'Department of Theater & Film',
+     2026),
+
+    ('체육학과',
+     'Department of Physical Education',
+     2026),
+
+    ('스포츠의학과',
+     'Department of Sports Medicine',
+     2026),
+
+    ('골프산업학과',
+     'Department of Golf Industry',
+     2026),
+
+    ('태권도학과',
+     'Department of Taekwondo',
+     2026),
+
+    ('스포츠지도학과',
+     'Department of Coaching',
+     2026),
+
+    ('자유전공학부',
+     'School of Liberal Studies',
+     2026)
+
+) as d(
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+where u.slug = 'kyunghee-university'
+
+on conflict (university_id, department_name_ko, guideline_year)
+do update set
+  department_name_en = excluded.department_name_en,
+  updated_at = now();
