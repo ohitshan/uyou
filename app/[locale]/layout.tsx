@@ -38,6 +38,10 @@ export async function generateMetadata({
 
     applicationName: SITE_NAME,
 
+    verification: {
+      google: "5Kd9F0hFIE35jbYCu_pvvTGGNWIyAd07nbBnoEC5g0U",
+    },
+
     title: {
       default: title,
       template: `%s | ${SITE_NAME}`,
