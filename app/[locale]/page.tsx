@@ -123,7 +123,7 @@ export default async function Page({
       </div>
 
       {/* 학과 검색 (전체 대학 통합) */}
-      {/* <DepartmentSearch locale={locale} /> */}
+      <DepartmentSearch locale={locale} />
 
       {/* 외국인 유학생 수 Top 10 */}
       {rankings.length > 0 && (
