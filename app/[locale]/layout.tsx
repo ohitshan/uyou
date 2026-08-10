@@ -40,6 +40,9 @@ export async function generateMetadata({
 
     verification: {
       google: "5Kd9F0hFIE35jbYCu_pvvTGGNWIyAd07nbBnoEC5g0U",
+      other: {
+        "naver-site-verification": "c5a3304066444b805da1d8a3058328ff5805410a",
+      },
     },
 
     title: {
