@@ -3747,3 +3747,760 @@ on conflict (university_id, department_name_ko, guideline_year)
 do update set
   department_name_en = excluded.department_name_en,
   updated_at = now();
+
+
+insert into university_departments (
+  university_id,
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+select
+  u.id,
+  d.department_name_ko,
+  d.department_name_en,
+  d.guideline_year
+from universities u
+cross join (
+  values
+
+    -- ========================================
+    -- 불교대학
+    -- College of Buddhist Studies
+    -- ========================================
+
+    (
+      '불교학부',
+      'Division of Buddhist Studies',
+      2026
+    ),
+
+    (
+      '문화유산학과',
+      'Department of Cultural Heritage',
+      2026
+    ),
+
+
+    -- ========================================
+    -- 문과대학
+    -- College of Humanities
+    -- ========================================
+
+    (
+      '국어국문·문예창작학부',
+      'Division of Korean Language, Literature, and Creative Writing',
+      2026
+    ),
+
+    (
+      '영어영문학부',
+      'Department of English Language and Literature',
+      2026
+    ),
+
+    (
+      '일본학과',
+      'Department of Japanese Studies',
+      2026
+    ),
+
+    (
+      '중어중문학과',
+      'Department of Chinese Language and Literature',
+      2026
+    ),
+
+    (
+      '철학과',
+      'Department of Philosophy',
+      2026
+    ),
+
+    (
+      '사학과',
+      'Department of History',
+      2026
+    ),
+
+
+    -- ========================================
+    -- 이과대학
+    -- College of Natural Science
+    -- ========================================
+
+    (
+      '수학과',
+      'Department of Mathematics',
+      2026
+    ),
+
+    (
+      '화학과',
+      'Department of Chemistry',
+      2026
+    ),
+
+    (
+      '통계학과',
+      'Department of Statistics',
+      2026
+    ),
+
+    (
+      '물리학과',
+      'Department of Physics',
+      2026
+    ),
+
+
+    -- ========================================
+    -- 법과대학
+    -- College of Law
+    -- ========================================
+
+    (
+      '법학과',
+      'Department of Law',
+      2026
+    ),
+
+
+    -- ========================================
+    -- 사회과학대학
+    -- College of Social Science
+    -- ========================================
+
+    (
+      '정치외교학전공',
+      'Major of Political Science and Diplomacy',
+      2026
+    ),
+
+    (
+      '행정학전공',
+      'Major of Public Administration',
+      2026
+    ),
+
+    (
+      '북한학전공',
+      'Major of North Korean Studies',
+      2026
+    ),
+
+    (
+      '경제학과',
+      'Department of Economics',
+      2026
+    ),
+
+    (
+      '국제통상학과',
+      'Department of International Trade',
+      2026
+    ),
+
+    (
+      '사회학전공',
+      'Major of Sociology',
+      2026
+    ),
+
+    (
+      '미디어커뮤니케이션학전공',
+      'Major of Media Communication',
+      2026
+    ),
+
+    (
+      '식품산업관리학과',
+      'Department of Food Industrial Management',
+      2026
+    ),
+
+    (
+      '광고홍보학과',
+      'Department of Advertising and Public Relations',
+      2026
+    ),
+
+    (
+      '사회복지학과',
+      'Department of Social Welfare',
+      2026
+    ),
+
+
+    -- ========================================
+    -- 경찰사법대학
+    -- College of Police and Criminal Justice
+    -- ========================================
+
+    (
+      '경찰행정학부',
+      'Division of Police Administration',
+      2026
+    ),
+
+
+    -- ========================================
+    -- 경영대학
+    -- Business School
+    -- ========================================
+
+    (
+      '경영대학',
+      'Business School',
+      2026
+    ),
+
+
+    -- ========================================
+    -- 공과대학
+    -- College of Engineering
+    -- ========================================
+
+    (
+      '전자전기공학부',
+      'Division of Electronics and Electrical Engineering',
+      2026
+    ),
+
+    (
+      '정보통신공학과',
+      'Department of Information and Communication Engineering',
+      2026
+    ),
+
+    (
+      '건설환경공학과',
+      'Department of Civil and Environmental Engineering',
+      2026
+    ),
+
+    (
+      '화공생물공학과',
+      'Department of Chemical and Biochemical Engineering',
+      2026
+    ),
+
+    (
+      '기계로봇에너지공학과',
+      'Department of Mechanical, Robotics and Energy Engineering',
+      2026
+    ),
+
+    (
+      '건축공학부',
+      'Division of Architectural Engineering',
+      2026
+    ),
+
+    (
+      '산업시스템공학과',
+      'Department of Industrial and Systems Engineering',
+      2026
+    ),
+
+    (
+      '에너지신소재공학과',
+      'Department of Energy and Materials Engineering',
+      2026
+    ),
+
+
+    -- ========================================
+    -- 첨단융합대학
+    -- College of Advanced Convergence Engineering
+    -- ========================================
+
+    (
+      '컴퓨터·AI학부',
+      'Division of Computer Science and Artificial Intelligence',
+      2026
+    ),
+
+    (
+      '시스템반도체학부',
+      'Division of System Semiconductor',
+      2026
+    ),
+
+    (
+      '의료인공지능공학과',
+      'Department of Medical AI Engineering',
+      2026
+    ),
+
+    (
+      '지능형네트워크융합학과',
+      'Department of Intelligent Network Convergence',
+      2026
+    ),
+
+
+    -- ========================================
+    -- 예술대학
+    -- College of Arts
+    -- ========================================
+
+    (
+      '영화영상학과',
+      'Department of Film and Digital Media',
+      2026
+    ),
+
+
+    -- ========================================
+    -- 바이오시스템대학
+    -- College of Life Science and Biotechnology
+    -- Bio-Medi Campus
+    -- ========================================
+
+    (
+      '융합환경과학과',
+      'Department of Converging Environmental Sciences',
+      2026
+    ),
+
+    (
+      '생명과학과',
+      'Department of Life Science',
+      2026
+    ),
+
+    (
+      '식품바이오융합공학과',
+      'Department of Food-Bioscience Integrative Technology',
+      2026
+    ),
+
+    (
+      '의생명공학과',
+      'Department of Biomedical Engineering',
+      2026
+    )
+
+) as d(
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+where u.slug = 'dongguk-university'
+
+on conflict (university_id, department_name_ko, guideline_year)
+do update set
+  department_name_en = excluded.department_name_en,
+  updated_at = now();
+
+
+insert into university_departments (
+  university_id,
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+select
+  u.id,
+  d.department_name_ko,
+  d.department_name_en,
+  d.guideline_year
+from universities u
+cross join (
+  values
+
+    -- ========================================
+    -- 인문대학
+    -- College of Humanities
+    -- ========================================
+
+    (
+      '기독교학과',
+      'Department of Christian Studies',
+      2026
+    ),
+
+    (
+      '국어국문학과',
+      'Department of Korean Language and Literature',
+      2026
+    ),
+
+    (
+      '영어영문학과',
+      'Department of English Language and Literature',
+      2026
+    ),
+
+    (
+      '독어독문학과',
+      'Department of German Literature and Language',
+      2026
+    ),
+
+    (
+      '불어불문학과',
+      'Department of French Language and Literature',
+      2026
+    ),
+
+    (
+      '중어중문학과',
+      'Department of Chinese Language and Literature',
+      2026
+    ),
+
+    (
+      '일어일문학과',
+      'Department of Japanese Language and Literature',
+      2026
+    ),
+
+    (
+      '철학과',
+      'Department of Philosophy',
+      2026
+    ),
+
+    (
+      '사학과',
+      'Department of History',
+      2026
+    ),
+
+    (
+      '예술창작학부 - 영화예술전공',
+      'School of Creative Writing and Arts - Film Arts Major',
+      2026
+    ),
+
+    (
+      '스포츠학부 - 생활체육전공',
+      'School of Sports - Sport for All Studies Major',
+      2026
+    ),
+
+    (
+      '스포츠학부 - 스포츠사이언스전공',
+      'School of Sports - Sport Science Major',
+      2026
+    ),
+
+
+    -- ========================================
+    -- 법과대학
+    -- College of Law
+    -- ========================================
+
+    (
+      '법학과',
+      'Department of Law',
+      2026
+    ),
+
+    (
+      '국제법무학과',
+      'Department of Global Law',
+      2026
+    ),
+
+
+    -- ========================================
+    -- 사회과학대학
+    -- College of Social Sciences
+    -- ========================================
+
+    (
+      '사회복지학부 - 사회복지실천전공',
+      'School of Social Welfare - Social Welfare Practice Major',
+      2026
+    ),
+
+    (
+      '사회복지학부 - 사회복지정책·행정전공',
+      'School of Social Welfare - Social Welfare Policy and Administration Major',
+      2026
+    ),
+
+    (
+      '행정학부 - 공공관리·정책기획전공',
+      'School of Public Administration - Public Management and Policy Planning Major',
+      2026
+    ),
+
+    (
+      '행정학부 - 정책평가·데이터분석전공',
+      'School of Public Administration - Policy Evaluation and Data Analysis Major',
+      2026
+    ),
+
+    (
+      '정치외교학과',
+      'Department of Political Science and International Relations',
+      2026
+    ),
+
+    (
+      '정보사회학과',
+      'Department of Information Sociology',
+      2026
+    ),
+
+    (
+      '언론홍보학과',
+      'Department of Journalism, Public Relations and Advertising',
+      2026
+    ),
+
+    (
+      '평생교육학과',
+      'Department of Lifelong Education',
+      2026
+    ),
+
+
+    -- ========================================
+    -- 경제통상대학
+    -- College of Economics and International Commerce
+    -- ========================================
+
+    (
+      '경제학과',
+      'Department of Economics',
+      2026
+    ),
+
+    (
+      '글로벌통상학과',
+      'Department of Global Commerce',
+      2026
+    ),
+
+
+    -- ========================================
+    -- 경영대학
+    -- College of Business Administration
+    -- ========================================
+
+    (
+      '경영학부 - HR & Marketing전공',
+      'School of Business Administration - HR and Marketing Major',
+      2026
+    ),
+
+    (
+      '경영학부 - OM & MIS전공',
+      'School of Business Administration - Operations Management and MIS Major',
+      2026
+    ),
+
+    (
+      '경영학부 - Financial Management전공',
+      'School of Business Administration - Financial Management Major',
+      2026
+    ),
+
+    (
+      '회계학과',
+      'Department of Accounting',
+      2026
+    ),
+
+    (
+      '벤처중소기업학과',
+      'Department of Entrepreneurship and Small Business',
+      2026
+    ),
+
+    (
+      '금융학부 - 디지털금융전공',
+      'School of Finance - Digital Finance Major',
+      2026
+    ),
+
+    (
+      '금융학부 - 글로벌금융전공',
+      'School of Finance - Global Finance Major',
+      2026
+    ),
+
+
+    -- ========================================
+    -- 자연과학대학
+    -- College of Natural Sciences
+    -- ========================================
+
+    (
+      '수학과',
+      'Department of Mathematics',
+      2026
+    ),
+
+    (
+      '물리학과',
+      'Department of Physics',
+      2026
+    ),
+
+    (
+      '화학과',
+      'Department of Chemistry',
+      2026
+    ),
+
+    (
+      '정보통계·보험수리학과',
+      'Department of Statistics and Actuarial Science',
+      2026
+    ),
+
+    (
+      '의생명시스템학부 - 생명정보학전공',
+      'School of Medical Biosystems - Bioinformatics Major',
+      2026
+    ),
+
+    (
+      '의생명시스템학부 - 생명공학전공',
+      'School of Medical Biosystems - Biotechnology Major',
+      2026
+    ),
+
+
+    -- ========================================
+    -- 공과대학
+    -- College of Engineering
+    -- ========================================
+
+    (
+      '화학공학과',
+      'Department of Chemical Engineering',
+      2026
+    ),
+
+    (
+      '신소재공학과',
+      'Department of Materials Science and Engineering',
+      2026
+    ),
+
+    (
+      '전기공학부 - 전기에너지전공',
+      'School of Electrical Engineering - Electrical Energy Major',
+      2026
+    ),
+
+    (
+      '전기공학부 - 전기정보전공',
+      'School of Electrical Engineering - Electrical Information Major',
+      2026
+    ),
+
+    (
+      '기계공학부',
+      'School of Mechanical Engineering',
+      2026
+    ),
+
+    (
+      '산업·정보시스템공학과',
+      'Department of Industrial and Information Systems Engineering',
+      2026
+    ),
+
+    (
+      '건축학부 - 건축학(5년 과정)전공',
+      'School of Architecture - Architecture Major (5-Year Program)',
+      2026
+    ),
+
+    (
+      '건축학부 - 건축공학전공',
+      'School of Architecture - Architectural Engineering Major',
+      2026
+    ),
+
+
+    -- ========================================
+    -- IT대학
+    -- College of Information Technology
+    -- ========================================
+
+    (
+      '컴퓨터학부 - 시스템소프트웨어전공',
+      'School of Computer Science - System Software Major',
+      2026
+    ),
+
+    (
+      '컴퓨터학부 - 융합소프트웨어전공',
+      'School of Computer Science - Convergence Software Major',
+      2026
+    ),
+
+    (
+      '전자정보공학부 - 전자공학전공',
+      'School of Electronic Information Engineering - Electronic Engineering Major',
+      2026
+    ),
+
+    (
+      '전자정보공학부 - IT융합전공',
+      'School of Electronic Information Engineering - IT Convergence Major',
+      2026
+    ),
+
+    (
+      '글로벌미디어학부 - AI미디어공학전공',
+      'Global School of Media - AI Media Engineering Major',
+      2026
+    ),
+
+    (
+      '글로벌미디어학부 - 크리에이터콘텐츠전공',
+      'Global School of Media - Creative Content Major',
+      2026
+    ),
+
+
+    -- ========================================
+    -- AI대학
+    -- College of AI
+    -- ========================================
+
+    (
+      'AI소프트웨어학부 - 소프트웨어전공',
+      'School of AI Software - Software Major',
+      2026
+    ),
+
+    (
+      'AI소프트웨어학부 - 정보보호전공',
+      'School of AI Software - Information Security Major',
+      2026
+    ),
+
+    (
+      'AI소프트웨어학부 - 인공지능전공',
+      'School of AI Software - Artificial Intelligence Major',
+      2026
+    ),
+
+    (
+      'AI소프트웨어학부 - AI시스템전공',
+      'School of AI Software - AI Systems Major',
+      2026
+    )
+
+) as d(
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+where u.slug = 'soongsil-university'
+
+on conflict (university_id, department_name_ko, guideline_year)
+do update set
+  department_name_en = excluded.department_name_en,
+  updated_at = now();
