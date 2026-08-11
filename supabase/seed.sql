@@ -4504,3 +4504,331 @@ on conflict (university_id, department_name_ko, guideline_year)
 do update set
   department_name_en = excluded.department_name_en,
   updated_at = now();
+
+
+insert into university_departments (
+  university_id,
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+select
+  u.id,
+  d.department_name_ko,
+  d.department_name_en,
+  d.guideline_year
+from universities u
+cross join (
+  values
+
+    -- ========================================
+    -- 문과대학
+    -- ========================================
+
+    ('국어국문학과',
+     'Korean Language & Literature',
+     2026),
+
+    ('영어영문학과',
+     'English Language & Literature',
+     2026),
+
+    ('중어중문학과',
+     'Chinese Language & Literature',
+     2026),
+
+    ('철학과',
+     'Philosophy',
+     2026),
+
+    ('사학과',
+     'History',
+     2026),
+
+    ('지리학과',
+     'Geography',
+     2026),
+
+    ('미디어커뮤니케이션학과',
+     'Media & Communication',
+     2026),
+
+    ('문화콘텐츠학과',
+     'Digital Culture & Contents',
+     2026),
+
+    ('문과대학자유전공학부',
+     'Liberal Studies in Liberal Arts',
+     2026),
+
+    -- ========================================
+    -- 이과대학
+    -- ========================================
+
+    ('수학과',
+     'Mathematics',
+     2026),
+
+    ('물리학과',
+     'Physics',
+     2026),
+
+    ('화학과',
+     'Chemistry',
+     2026),
+
+    ('이과대학자유전공학부',
+     'Liberal Studies in Sciences',
+     2026),
+
+    -- ========================================
+    -- 건축대학
+    -- ========================================
+
+    ('건축학부',
+     'Architecture',
+     2026),
+
+    -- ========================================
+    -- 공과대학
+    -- ========================================
+
+    ('사회환경공학부',
+     'Civil and Environmental Engineering',
+     2026),
+
+    ('기계·로봇·자동차공학부',
+     'Mechanical Engineering',
+     2026),
+
+    ('전기전자공학부',
+     'Electrical and Electronics Engineering',
+     2026),
+
+    ('화공·생명·에너지공학부',
+     'Chemical, Biomolecular & Energy Engineering',
+     2026),
+
+    ('컴퓨터공학부',
+     'Computer Science & Engineering',
+     2026),
+
+    ('재료공학과',
+     'Materials Science & Engineering',
+     2026),
+
+    ('항공우주·모빌리티공학과',
+     'Aerospace & Mobility Engineering',
+     2026),
+
+    ('생물공학과',
+     'Biological Engineering',
+     2026),
+
+    ('산업공학과',
+     'Industrial Engineering',
+     2026),
+
+    ('공과대학자유전공학부',
+     'Liberal Studies in Engineering',
+     2026),
+
+    -- ========================================
+    -- 사회과학대학
+    -- ========================================
+
+    ('정치외교학과',
+     'Political Science',
+     2026),
+
+    ('경제학과',
+     'Economics',
+     2026),
+
+    ('행정학과',
+     'Public Administration',
+     2026),
+
+    ('국제무역학과',
+     'International Commerce',
+     2026),
+
+    ('응용통계학과',
+     'Applied Statistics',
+     2026),
+
+    ('사회과학대학융합전공학부',
+     'Interdisciplinary Studies in Social Science',
+     2026),
+
+    -- ========================================
+    -- 경영대학
+    -- ========================================
+
+    ('경영학과',
+     'Business Administration',
+     2026),
+
+    ('기술경영학과',
+     'Management of Technology',
+     2026),
+
+    -- ========================================
+    -- 부동산과학원
+    -- ========================================
+
+    ('부동산학과',
+     'Real Estate Studies',
+     2026),
+
+    -- ========================================
+    -- 융합과학기술원
+    -- ========================================
+
+    ('첨단바이오공학부',
+     'Advanced Biotechnology',
+     2026),
+
+    ('시스템생명공학과',
+     'Systems Biotechnology',
+     2026),
+
+    ('융합생명공학과',
+     'Integrative Bioscience and Biotechnology',
+     2026),
+
+    ('융합과학기술원자유전공학부',
+     'Liberal Studies in Institute of Science and Technology',
+     2026),
+
+    -- ========================================
+    -- 생명과학대학
+    -- ========================================
+
+    ('동물자원·식품과학·유통학부',
+     'Animal & Food Science and Marketing',
+     2026),
+
+    ('환경보건·산림조경학부',
+     'Environmental Health/Forestry and Landscape Architecture',
+     2026),
+
+    ('생명과학특성학과',
+     'Biological Sciences',
+     2026),
+
+    ('식량자원과학과',
+     'Crop Science',
+     2026),
+
+    ('생명과학대학자유전공학부',
+     'Liberal Studies in Life Science',
+     2026),
+
+    -- ========================================
+    -- 수의과대학
+    -- ========================================
+
+    ('수의예과',
+     'Veterinary Medicine',
+     2026),
+
+    -- ========================================
+    -- 예술디자인대학
+    -- ========================================
+
+    ('커뮤니케이션디자인학과',
+     'Communication Design',
+     2026),
+
+    ('산업디자인학과',
+     'Industrial Design',
+     2026),
+
+    ('의상디자인학과',
+     'Apparel Design',
+     2026),
+
+    ('리빙디자인학과',
+     'Living Design',
+     2026),
+
+    ('현대미술학과',
+     'Contemporary Arts',
+     2026),
+
+    ('영상학과',
+     'Moving Images',
+     2026),
+
+    ('매체연기학과',
+     'Media Acting',
+     2026),
+
+    -- ========================================
+    -- 사범대학
+    -- ========================================
+
+    ('일어교육과',
+     'Japanese Language Education',
+     2026),
+
+    ('수학교육과',
+     'Mathematics Education',
+     2026),
+
+    ('체육교육과',
+     'Physical Education',
+     2026),
+
+    ('음악교육과',
+     'Music Education',
+     2026),
+
+    ('교육공학과',
+     'Educational Technology',
+     2026),
+
+    ('영어교육과',
+     'English Education',
+     2026),
+
+    -- ========================================
+    -- 국제대학
+    -- ========================================
+
+    ('국제통상비즈니스학과',
+     'International Commerce & Business',
+     2026),
+
+    ('문화미디어학과',
+     'Culture & Media',
+     2026),
+
+    ('AI디자인학과',
+     'AI Design',
+     2026),
+
+    ('컴퓨터소프트웨어학과',
+     'Computer Software',
+     2026),
+
+    -- ========================================
+    -- 상허교양대학
+    -- ========================================
+
+    ('KU자유전공학부',
+     'KU School of Liberal Studies',
+     2026)
+
+) as d(
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+where u.slug = 'konkuk-university'
+
+on conflict (university_id, department_name_ko, guideline_year)
+do update set
+  department_name_en = excluded.department_name_en,
+  updated_at = now();
