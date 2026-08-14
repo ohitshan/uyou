@@ -17,13 +17,13 @@ export function UniversityCard({
   const Card = (
     <div className="overflow-hidden rounded-lg border border-border bg-surface shadow-sm transition-shadow hover:shadow-md">
       {/* 로고 영역 - 메인으로 크게 */}
-      <div className="flex h-36 items-center justify-center bg-background p-6">
+      <div className="relative aspect-square w-full overflow-hidden bg-background">
         <Image
           src={logoUrl}
-          alt={`${name} 로고`}
-          width={120}
-          height={120}
-          className="h-full w-full object-contain"
+          alt={`${name} 캠퍼스`}
+          fill
+          className="object-cover"
+          sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
         />
       </div>
 
