@@ -4848,3 +4848,134 @@ on conflict (university_id, department_name_ko, guideline_year)
 do update set
   department_name_en = excluded.department_name_en,
   updated_at = now();
+
+insert into university_departments (
+  university_id,
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+select
+  u.id,
+  d.department_name_ko,
+  d.department_name_en,
+  d.guideline_year
+from universities u
+cross join (
+  values
+
+    -- 서울캠퍼스
+    ('전자·전기공학부', 'Electronic and Electrical Engineering', 2027),
+
+    ('신소재·화공시스템공학부 - 신소재공학전공',
+     'Chemical Engineering and Materials Science - Materials Science and Engineering', 2027),
+
+    ('신소재·화공시스템공학부 - 화학공학전공',
+     'Chemical Engineering and Materials Science - Chemical Engineering', 2027),
+
+    ('컴퓨터공학과', 'Computer Engineering', 2027),
+    ('산업·데이터공학과', 'Industrial and Data Engineering', 2027),
+    ('기계·시스템디자인공학과', 'Mechanical and System Design Engineering', 2027),
+    ('건설환경공학과', 'Civil and Environmental Engineering', 2027),
+
+    ('건축학부 - 건축학전공(5년제)',
+     'Architecture (5-year program)', 2027),
+
+    ('건축학부 - 실내건축학전공',
+     'Interior Architecture', 2027),
+
+    ('도시공학과', 'Urban Design and Planning', 2027),
+
+    ('경영학부', 'Business Administration', 2027),
+
+    ('영어영문학과', 'English Language and Literature', 2027),
+    ('독어독문학과', 'German Language and Literature', 2027),
+    ('불어불문학과', 'French Language and Literature', 2027),
+    ('국어국문학과', 'Korean Language and Literature', 2027),
+
+    ('법학부', 'Law', 2027),
+    ('경제학부', 'Economics', 2027),
+
+    ('예술학과', 'Art History and Theory', 2027),
+    ('동양화과', 'Oriental Painting', 2027),
+    ('회화과', 'Painting', 2027),
+    ('판화과', 'Printmaking', 2027),
+    ('조소과', 'Sculpture', 2027),
+
+    ('디자인학부 - 시각디자인전공',
+     'Design - Visual Communication Design', 2027),
+
+    ('디자인학부 - 산업디자인전공',
+     'Design - Industrial Design', 2027),
+
+    ('금속조형디자인과', 'Metalwork and Jewelry', 2027),
+    ('도예·유리과', 'Ceramics and Glass', 2027),
+    ('목조형가구학과', 'Woodworking and Furniture Design', 2027),
+    ('섬유미술·패션디자인과', 'Textile Art and Fashion Design', 2027),
+
+    ('공연예술학부 - 뮤지컬전공(연기)',
+     'Performing Arts - Musical Theatre (Acting)', 2027),
+
+    ('공연예술학부 - 실용음악전공(보컬/작곡)',
+     'Performing Arts - Contemporary Music (Vocal, Composition)', 2027),
+
+    -- 세종캠퍼스
+    ('전자전기융합공학과',
+     'Electronic and Electrical Convergence Engineering', 2027),
+
+    ('소프트웨어융합학과',
+     'Software and Communications Engineering', 2027),
+
+    ('나노반도체공학과',
+     'Materials and Science Engineering', 2027),
+
+    ('건축공학부 - 건축디자인전공(5년제)',
+     'Architectural Engineering - Major in Architecture (5-year program)', 2027),
+
+    ('건축공학부 - 건축공학전공',
+     'Architectural Engineering - Architecture Engineering', 2027),
+
+    ('AI기계융합공학과',
+     'Mechanical and Design Engineering', 2027),
+
+    ('조선해양모빌리티공학과',
+     'Naval Architecture, Ocean and Mobility Engineering', 2027),
+
+    ('바이오화학융합공학과',
+     'Biological and Chemical Engineering', 2027),
+
+    ('게임학부 - 게임소프트웨어전공(공학계)',
+     'Games - Game Software', 2027),
+
+    ('상경학부 - 글로벌경영전공',
+     'Business Management - Business Management', 2027),
+
+    ('상경학부 - 회계학전공',
+     'Business Management - Accounting', 2027),
+
+    ('상경학부 - 금융보험학전공',
+     'Business Management - Finance and Insurance', 2027),
+
+    ('광고홍보학부',
+     'Advertising and Public Relations', 2027),
+
+    ('디자인컨버전스학부',
+     'Design Convergence', 2027),
+
+    ('영상·애니메이션학부',
+     'Film and Animation', 2027),
+
+    ('게임학부 - 게임그래픽디자인전공(미술계)',
+     'Games - Game Graphics Design', 2027)
+
+) as d(
+  department_name_ko,
+  department_name_en,
+  guideline_year
+)
+where u.slug = 'hongik-university'
+
+on conflict (university_id, department_name_ko, guideline_year)
+do update set
+  department_name_en = excluded.department_name_en,
+  updated_at = now();
