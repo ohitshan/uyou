@@ -69,12 +69,21 @@ export async function generateMetadata({
       url: `${SITE_URL}/${locale}`,
       locale,
       type: "website",
+      images: [
+        {
+          url: `${SITE_URL}/banner.png`, // public 폴더에 대표 이미지 준비 필요
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
 
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [`${SITE_URL}/banner.png`],
     },
   };
 }
@@ -85,6 +94,11 @@ const websiteJsonLd = {
   name: SITE_NAME,
   alternateName: ["Uyou", "유유"],
   url: `${SITE_URL}/`,
+  publisher: {
+    "@type": "Organization",
+    name: SITE_NAME,
+    url: SITE_URL,
+  },
 };
 
 export default async function LocaleLayout({
