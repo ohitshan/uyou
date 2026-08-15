@@ -79,7 +79,9 @@ export async function generateMetadata({
     openGraph: {
       title: name,
       description: description || undefined,
-      images: university.logo_url ? [{ url: university.logo_url }] : undefined,
+      images: university.logo_url
+        ? [{ url: university.logo_url }]
+        : [{ url: `${SITE_URL}/banner.png` }],
     },
   };
 }
