@@ -16,6 +16,7 @@
     "deptSearchHint": "Please enter at least 2 characters",
     "deptSearchLoading": "Searching...",
     "deptSearchEmpty": "No matching departments found.",
+    "deptSearchError": "Something went wrong while searching. Please try again.",
     "listTitle": "Universities",
     "searchPlaceholder": "Search by university name",
     "regionAll": "All Regions",

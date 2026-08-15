@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Image from "next/image";
+import { Suspense } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { supabase } from "@/lib/supabase";
 import { UniversityList } from "@/components/university-list";
@@ -123,7 +124,13 @@ export default async function Page({
       </div>
 
       {/* 학과 검색 (전체 대학 통합) */}
-      <DepartmentSearch locale={locale} />
+      <Suspense
+        fallback={
+          <div className="mb-10 h-11 animate-pulse rounded-md bg-background" />
+        }
+      >
+        <DepartmentSearch locale={locale} />
+      </Suspense>
 
       {/* 외국인 유학생 수 Top 10 */}
       {rankings.length > 0 && (
