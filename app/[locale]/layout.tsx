@@ -7,6 +7,7 @@ import { routing } from "@/i18n/routing";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Providers } from "@/components/providers";
+import { Analytics } from "@vercel/analytics/next";
 
 import "../globals.css";
 
@@ -120,6 +121,7 @@ export default async function LocaleLayout({
             <Footer />
           </NextIntlClientProvider>
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
