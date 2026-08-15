@@ -5,6 +5,10 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { supabase } from "@/lib/supabase";
 import { PostCard } from "@/components/post-card";
 import { DepartmentList } from "@/components/department-list";
+import { ShareButton } from "@/components/share-button";
+
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://uyou-two.vercel.app";
 
 export const revalidate = 3600;
 
@@ -130,22 +134,31 @@ export default async function UniversityDetailPage({
       />
       {/* 학교소개 */}
       <section className="rounded-lg border border-border bg-surface p-6 shadow-sm">
-        <div className="flex items-center gap-4">
-          <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-background">
-            <Image
-              src={university.logo_url}
-              alt={`${displayName} 로고`}
-              width={64}
-              height={64}
-              className="h-full w-full object-contain"
-            />
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-background">
+              <Image
+                src={university.logo_url}
+                alt={`${displayName} 로고`}
+                width={64}
+                height={64}
+                className="h-full w-full object-contain"
+              />
+            </div>
+            <div>
+              <h1 className="text-h2 font-bold text-text-primary">
+                {displayName}
+              </h1>
+              <p className="mt-1 text-sm text-text-secondary">
+                {displayRegion}
+              </p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-h2 font-bold text-text-primary">
-              {displayName}
-            </h1>
-            <p className="mt-1 text-sm text-text-secondary">{displayRegion}</p>
-          </div>
+
+          <ShareButton
+            url={`${SITE_URL}/${locale}/universities/${slug}`}
+            title={displayName}
+          />
         </div>
 
         {displayDescription && (
