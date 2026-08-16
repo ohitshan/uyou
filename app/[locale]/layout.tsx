@@ -10,6 +10,7 @@ import { Providers } from "@/components/providers";
 import { Analytics } from "@vercel/analytics/next";
 
 import "../globals.css";
+import { GoogleAnalytics } from "@/components/google-analytics";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://uyou-two.vercel.app";
@@ -136,6 +137,7 @@ export default async function LocaleLayout({
           </NextIntlClientProvider>
         </Providers>
         <Analytics />
+        <GoogleAnalytics />
       </body>
     </html>
   );
