@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
+import { Input } from "./ui/input";
 
 export interface DepartmentItem {
   id: string;
@@ -39,12 +40,12 @@ export function DepartmentList({
     <div>
       {/* 학과 검색 */}
       {departments.length > 8 && (
-        <input
+        <Input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={t("departmentSearchPlaceholder")}
-          className="mb-3 h-10 w-full rounded-md border border-border-strong bg-surface px-3 text-body-lg text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none focus:ring-2 focus:ring-focus-ring"
+          className="mb-3 w-full"
         />
       )}
 

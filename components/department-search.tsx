@@ -7,6 +7,7 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
+import { Input } from "./ui/input";
 
 interface SearchResult {
   id: string;
@@ -88,13 +89,13 @@ export function DepartmentSearch({ locale }: { locale: string }) {
       </h2>
 
       <form className="flex gap-2" onSubmit={handleSubmit}>
-        <input
+        <Input
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={t("deptSearchPlaceholder")}
-          className="h-11 min-w-0 flex-1 rounded-md border border-border-strong bg-surface px-3 text-body-lg text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none focus:ring-2 focus:ring-focus-ring"
           aria-label={t("deptSearchPlaceholder")}
+          className="min-w-0 flex-1 h-11"
         />
 
         <Button

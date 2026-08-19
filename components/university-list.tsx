@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { UniversityCard } from "@/components/university-card";
+import { Input } from "./ui/input";
 
 export interface UniversityListItem {
   id: string;
@@ -51,12 +52,12 @@ export function UniversityList({
 
       {/* 검색 + 지역 필터 */}
       <div className="mb-4 flex flex-col gap-3 sm:flex-row">
-        <input
+        <Input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={t("searchPlaceholder")}
-          className="h-10 flex-1 rounded-md border border-border-strong bg-surface px-3 text-body-lg text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none focus:ring-2 focus:ring-focus-ring"
+          className="w-full flex-1"
         />
         <select
           value={region}
