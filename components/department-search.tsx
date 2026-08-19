@@ -93,7 +93,7 @@ export function DepartmentSearch({ locale }: { locale: string }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={t("deptSearchPlaceholder")}
-          className="h-11 flex-1 rounded-md border border-border-strong bg-surface px-3 text-body-lg text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none focus:ring-2 focus:ring-focus-ring"
+          className="h-11 min-w-0 flex-1 rounded-md border border-border-strong bg-surface px-3 text-body-lg text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none focus:ring-2 focus:ring-focus-ring"
           aria-label={t("deptSearchPlaceholder")}
         />
 
