@@ -7,6 +7,7 @@ import { routing } from "@/i18n/routing";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Providers } from "@/components/providers";
+import { ServiceWorkerRegister } from "@/components/service-worker-register";
 import { Analytics } from "@vercel/analytics/next";
 
 import "../globals.css";
@@ -129,6 +130,7 @@ export default async function LocaleLayout({
       <body className="flex min-h-screen flex-col">
         <Providers>
           <NextIntlClientProvider>
+            <ServiceWorkerRegister />
             <Header />
 
             <div className="flex-1">{children}</div>
