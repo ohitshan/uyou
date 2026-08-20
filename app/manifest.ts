@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "UYOU",
     short_name: "UYOU",
     description: "한국 유학 정보를 한곳에서 확인하는 서비스",
-    start_url: "/",
+    start_url: "/pwa",
     scope: "/",
     display: "standalone",
     background_color: "#FBFAF7",

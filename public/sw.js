@@ -3,6 +3,7 @@ const LOCALE_CACHE = "uyou-pwa-locale";
 
 const STATIC_ASSETS = [
   "/",
+  "/pwa",
   "/manifest.webmanifest",
   "/icon.png",
   "/apple-icon.png",
