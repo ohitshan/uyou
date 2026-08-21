@@ -55,74 +55,74 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // --------------------------------
-  // 페이지 / ISR
-  // Network First
-  // --------------------------------
+  // Next.js immutable 정적 청크(JS/CSS 등)만 Cache First
+  const isImmutableAsset = url.pathname.startsWith("/_next/static/");
+
+  if (isImmutableAsset) {
+    event.respondWith(handleImmutableAsset(request, event));
+    return;
+  }
+
+  // 그 외(페이지 네비게이션 + RSC/JSON fetch 포함)는 Network First
   if (request.mode === "navigate") {
     event.respondWith(handleNavigation(request));
     return;
   }
 
-  // --------------------------------
-  // 정적 리소스
-  // Cache First
-  // --------------------------------
-  event.respondWith(
-    caches.match(request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-
-      return fetch(request).then((response) => {
-        if (response.ok) {
-          const responseClone = response.clone();
-
-          event.waitUntil(
-            caches.open(CACHE_NAME).then((cache) => {
-              return cache.put(request, responseClone);
-            }),
-          );
-        }
-
-        return response;
-      });
-    }),
-  );
+  event.respondWith(handleRequest(request));
 });
 
 async function handleNavigation(request) {
+  return handleRequest(request, { allowRootFallback: true });
+}
+
+async function handleImmutableAsset(request, event) {
+  const cached = await caches.match(request);
+  if (cached) {
+    return cached;
+  }
+
+  const response = await fetch(request);
+  if (response.ok) {
+    const clone = response.clone();
+    event.waitUntil(
+      caches.open(CACHE_NAME).then((cache) => cache.put(request, clone)),
+    );
+  }
+
+  return response;
+}
+
+async function handleRequest(request, options = {}) {
+  const { allowRootFallback = false } = options;
+
   try {
-    // 항상 네트워크를 먼저 요청해서 ISR 응답을 받음
     const response = await fetch(request);
 
-    // 정상적인 응답만 캐시
-    if (response.ok) {
-      const responseClone = response.clone();
+    const contentType = response.headers.get("content-type") || "";
+    const shouldCache =
+      response.ok &&
+      (!allowRootFallback || contentType.includes("text/html"));
 
-      await caches.open(CACHE_NAME).then((cache) => {
-        return cache.put(request, responseClone);
-      });
+    if (shouldCache) {
+      const responseClone = response.clone();
+      await caches
+        .open(CACHE_NAME)
+        .then((cache) => cache.put(request, responseClone));
     }
 
     return response;
   } catch {
-    // --------------------------------
-    // Offline
-    // --------------------------------
-
-    // 요청한 페이지가 캐시에 있으면 반환
     const cachedResponse = await caches.match(request);
-
     if (cachedResponse) {
       return cachedResponse;
     }
 
-    // 마지막 fallback
-    const fallbackResponse = await caches.match("/");
-
-    if (fallbackResponse) {
-      return fallbackResponse;
+    if (allowRootFallback) {
+      const fallbackResponse = await caches.match("/");
+      if (fallbackResponse) {
+        return fallbackResponse;
+      }
     }
 
     return new Response("Offline", {
