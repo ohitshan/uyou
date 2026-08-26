@@ -1,8 +1,16 @@
-const CACHE_NAME = "uyou-pwa-v2";
+const CACHE_NAME = "uyou-pwa-v3";
+
+const SUPPORTED_LOCALES = ["ko", "en", "my"];
 
 const STATIC_ASSETS = [
   "/",
   "/pwa",
+
+  // Locale home
+  "/ko",
+  "/en",
+  "/my",
+
   "/manifest.webmanifest",
   "/icon.png",
   "/apple-icon.png",
@@ -49,7 +57,9 @@ self.addEventListener("activate", (event) => {
  * ========================================================= */
 
 self.addEventListener("push", (event) => {
-  if (!event.data) return;
+  if (!event.data) {
+    return;
+  }
 
   let data;
 
@@ -93,18 +103,21 @@ self.addEventListener("notificationclick", (event) => {
         includeUncontrolled: true,
       })
       .then((clientList) => {
-        // 이미 UYOU가 열려 있으면 해당 창으로 이동
         for (const client of clientList) {
-          if ("focus" in client) {
+          if ("navigate" in client) {
             client.navigate(url);
+          }
+
+          if ("focus" in client) {
             return client.focus();
           }
         }
 
-        // 열려 있는 창이 없으면 새 창
         if (clients.openWindow) {
           return clients.openWindow(url);
         }
+
+        return undefined;
       }),
   );
 });
@@ -132,21 +145,29 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Next.js immutable 정적 청크(JS/CSS 등)만 Cache First
-  const isImmutableAsset = url.pathname.startsWith("/_next/static/");
-
-  if (isImmutableAsset) {
-    event.respondWith(handleImmutableAsset(request, event));
+  // --------------------------------
+  // Next.js immutable static assets
+  // Cache First
+  // --------------------------------
+  if (url.pathname.startsWith("/_next/static/")) {
+    event.respondWith(handleStaticAsset(request, event));
     return;
   }
 
-  // 그 외(페이지 네비게이션 + RSC/JSON fetch 포함)는 Network First
+  // --------------------------------
+  // 페이지 / ISR
+  // Network First
+  // --------------------------------
   if (request.mode === "navigate") {
     event.respondWith(handleNavigation(request));
     return;
   }
 
-  event.respondWith(handleRequest(request));
+  // --------------------------------
+  // 그 외 정적 리소스
+  // Cache First
+  // --------------------------------
+  event.respondWith(handleStaticAsset(request, event));
 });
 
 /* =========================================================
@@ -154,72 +175,58 @@ self.addEventListener("fetch", (event) => {
  * ========================================================= */
 
 async function handleNavigation(request) {
-  return handleRequest(request, { allowRootFallback: true });
-}
-
-/* =========================================================
- * Immutable Assets
- * ========================================================= */
-
-async function handleImmutableAsset(request, event) {
-  const cached = await caches.match(request);
-
-  if (cached) {
-    return cached;
-  }
-
-  const response = await fetch(request);
-
-  if (response.ok) {
-    const clone = response.clone();
-
-    event.waitUntil(
-      caches.open(CACHE_NAME).then((cache) => {
-        return cache.put(request, clone);
-      }),
-    );
-  }
-
-  return response;
-}
-
-/* =========================================================
- * Network First
- * ========================================================= */
-
-async function handleRequest(request, options = {}) {
-  const { allowRootFallback = false } = options;
-
   try {
+    // 항상 네트워크를 먼저 요청해서 최신 ISR 응답을 받음
     const response = await fetch(request);
 
-    const contentType = response.headers.get("content-type") || "";
-
-    const shouldCache =
-      response.ok && (!allowRootFallback || contentType.includes("text/html"));
-
-    if (shouldCache) {
+    // 정상적인 HTML 응답만 캐시
+    if (
+      response.ok &&
+      (response.headers.get("content-type") || "").includes("text/html")
+    ) {
       const responseClone = response.clone();
 
-      await caches
-        .open(CACHE_NAME)
-        .then((cache) => cache.put(request, responseClone));
+      await caches.open(CACHE_NAME).then((cache) => {
+        return cache.put(request, responseClone);
+      });
     }
 
     return response;
   } catch {
+    // --------------------------------
+    // Offline
+    // --------------------------------
+
+    // 1. 요청한 정확한 페이지가 캐시에 있으면 반환
     const cachedResponse = await caches.match(request);
 
     if (cachedResponse) {
       return cachedResponse;
     }
 
-    if (allowRootFallback) {
-      const fallbackResponse = await caches.match("/");
+    // 2. 요청 URL의 locale 확인
+    const locale = getLocaleFromPath(request.url);
 
-      if (fallbackResponse) {
-        return fallbackResponse;
+    if (locale) {
+      const localeHome = await caches.match(`/${locale}`);
+
+      if (localeHome) {
+        return localeHome;
       }
+    }
+
+    // 3. locale을 알 수 없는 경우 PWA entry fallback
+    const pwaFallback = await caches.match("/pwa");
+
+    if (pwaFallback) {
+      return pwaFallback;
+    }
+
+    // 4. 마지막 fallback
+    const rootFallback = await caches.match("/");
+
+    if (rootFallback) {
+      return rootFallback;
     }
 
     return new Response("Offline", {
@@ -228,6 +235,59 @@ async function handleRequest(request, options = {}) {
       headers: {
         "Content-Type": "text/plain; charset=utf-8",
       },
+    });
+  }
+}
+
+/* =========================================================
+ * Locale
+ * ========================================================= */
+
+function getLocaleFromPath(requestUrl) {
+  const url = new URL(requestUrl);
+
+  const segments = url.pathname.split("/").filter(Boolean);
+
+  const locale = segments[0];
+
+  if (SUPPORTED_LOCALES.includes(locale)) {
+    return locale;
+  }
+
+  return null;
+}
+
+/* =========================================================
+ * Static Assets
+ * ========================================================= */
+
+async function handleStaticAsset(request, event) {
+  // 1. Cache First
+  const cachedResponse = await caches.match(request);
+
+  if (cachedResponse) {
+    return cachedResponse;
+  }
+
+  // 2. Cache에 없으면 네트워크
+  try {
+    const response = await fetch(request);
+
+    if (response.ok) {
+      const responseClone = response.clone();
+
+      event.waitUntil(
+        caches.open(CACHE_NAME).then((cache) => {
+          return cache.put(request, responseClone);
+        }),
+      );
+    }
+
+    return response;
+  } catch {
+    return new Response("", {
+      status: 503,
+      statusText: "Service Unavailable",
     });
   }
 }
