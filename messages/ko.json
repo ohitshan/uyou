@@ -40,5 +40,16 @@
   },
   "Share": {
     "share": "공유하기"
+  },
+  "Push": {
+    "subscribe": "알림 받기",
+    "unsubscribe": "알림 취소",
+    "subscribed": "알림 받는 중",
+    "loading": "처리 중...",
+    "error": {
+      "unsupported": "이 브라우저에서는 푸시 알림을 지원하지 않습니다.",
+      "permissionDenied": "알림 권한이 거부되었습니다.",
+      "serverError": "알림 처리 중 오류가 발생했습니다. 다시 시도해주세요."
+    }
   }
 }

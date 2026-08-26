@@ -40,5 +40,16 @@
   },
   "Share": {
     "share": "Share"
+  },
+  "Push": {
+    "subscribe": "Get Notifications",
+    "unsubscribe": "Turn Off Notifications",
+    "subscribed": "Notifications On",
+    "loading": "Processing...",
+    "error": {
+      "unsupported": "Push notifications are not supported by this browser.",
+      "permissionDenied": "Notification permission was denied.",
+      "serverError": "Something went wrong while updating notifications. Please try again."
+    }
   }
 }

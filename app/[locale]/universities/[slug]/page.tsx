@@ -6,6 +6,7 @@ import { supabase } from "@/lib/supabase";
 import { PostCard } from "@/components/post-card";
 import { DepartmentList } from "@/components/department-list";
 import { ShareButton } from "@/components/share-button";
+import { PushSubscribeButton } from "@/components/push-subscribe-button";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://uyou-two.vercel.app";
@@ -128,16 +129,18 @@ export default async function UniversityDetailPage({
   };
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-8">
+    <main className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6">
       <script
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+
       {/* 학교소개 */}
-      <section className="rounded-lg border border-border bg-surface p-6 shadow-sm">
+      <section className="rounded-lg border border-border bg-surface p-5 shadow-sm sm:p-6">
+        {/* 학교 정보 + 공유 버튼 */}
         <div className="flex items-start justify-between gap-4">
-          <div className="flex items-center gap-4">
+          <div className="flex min-w-0 items-center gap-4">
             <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-background">
               <Image
                 src={university.logo_url}
@@ -147,42 +150,54 @@ export default async function UniversityDetailPage({
                 className="h-full w-full object-contain"
               />
             </div>
-            <div>
-              <h1 className="text-h2 font-bold text-text-primary">
+
+            <div className="min-w-0">
+              <h1 className="break-keep text-h2 font-bold text-text-primary">
                 {displayName}
               </h1>
+
               <p className="mt-1 text-sm text-text-secondary">
                 {displayRegion}
               </p>
             </div>
           </div>
 
-          <ShareButton
-            url={`${SITE_URL}/${locale}/universities/${slug}`}
-            title={displayName}
-          />
+          <div className="shrink-0">
+            <ShareButton
+              url={`${SITE_URL}/${locale}/universities/${slug}`}
+              title={displayName}
+            />
+          </div>
         </div>
 
+        {/* 설명 */}
         {displayDescription && (
-          <p className="mt-4 text-body-lg text-text-primary">
+          <p className="mt-5 text-body-lg text-text-primary">
             {displayDescription}
           </p>
         )}
 
-        <div className="mt-4 flex flex-col gap-1 text-sm text-text-secondary">
+        {/* 주소 + 홈페이지 */}
+        <div className="mt-5 flex flex-col gap-1 text-sm text-text-secondary">
           {displayAddress && (
             <p>
               {t("addressLabel")}: {displayAddress}
             </p>
           )}
+
           <a
             href={university.site_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary hover:underline"
+            className="w-fit text-primary hover:underline"
           >
             {t("siteLink")}
           </a>
+        </div>
+
+        {/* 알림 버튼 */}
+        <div className="mt-5">
+          <PushSubscribeButton universityId={university.id} />
         </div>
       </section>
 
@@ -209,7 +224,7 @@ export default async function UniversityDetailPage({
       </section>
 
       {/* 게시물 리스트 */}
-      <section className="mt-8">
+      <section className="mt-10 border-t border-border pt-8">
         <h2 className="text-h3 font-semibold text-text-primary">
           {t("noticeTitle")}
         </h2>
