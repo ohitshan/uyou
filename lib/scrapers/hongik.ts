@@ -16,7 +16,7 @@ function normalizeDate(dateText: string): string | null {
 
 async function run(page: Page): Promise<ScrapedPost[]> {
   await page.goto(LIST_URL, { waitUntil: "domcontentloaded", timeout: 60000 });
-  await page.waitForSelector(".b-list-box", { timeout: 30000 });
+  await page.waitForSelector(".b-list-box", { timeout: 40000 });
 
   const rawPosts = await page.evaluate(() => {
     const items = Array.from(document.querySelectorAll("li .b-list-box"));
