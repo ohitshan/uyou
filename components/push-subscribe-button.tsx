@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -133,16 +134,19 @@ export function PushSubscribeButton({
   const t = useTranslations("Push");
   const queryClient = useQueryClient();
 
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   /**
    * 현재 대학의 Push 구독 상태
    */
   const { data: status, isLoading: statusLoading } = useQuery({
     queryKey: ["push-subscribe", universityId],
     queryFn: () => fetchPushStatus(universityId),
-    enabled:
-      typeof window !== "undefined" &&
-      "serviceWorker" in navigator &&
-      "PushManager" in window,
+    enabled: mounted && "serviceWorker" in navigator && "PushManager" in window,
     staleTime: 0,
   });
 
@@ -241,7 +245,10 @@ export function PushSubscribeButton({
 
   const subscribed = status?.subscribed ?? false;
 
-  const loading = statusLoading || subscribeMutation.isPending;
+  const loading =
+    statusLoading ||
+    subscribeMutation.isPending ||
+    unsubscribeMutation.isPending;
 
   let errorKey: "unsupported" | "permissionDenied" | "serverError" | null =
     null;
@@ -257,6 +264,10 @@ export function PushSubscribeButton({
     } else {
       errorKey = "serverError";
     }
+  }
+
+  if (unsubscribeMutation.error) {
+    errorKey = "serverError";
   }
 
   return (
