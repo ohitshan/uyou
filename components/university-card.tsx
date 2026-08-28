@@ -39,7 +39,7 @@ export function UniversityCard({
 
   if (href) {
     return (
-      <Link href={href} className="block" prefetch={false}>
+      <Link href={href} className="block" prefetch>
         {Card}
       </Link>
     );

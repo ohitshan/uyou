@@ -108,8 +108,11 @@ export default async function UniversityDetailPage({
   const displayAddress = translation?.address || university.address;
   const displayDescription = translation?.description || university.description;
 
-  const posts = await getPosts(university.id);
-  const departments = await getDepartments(university.id);
+  const [posts, departments] = await Promise.all([
+    getPosts(university.id),
+    getDepartments(university.id),
+  ]);
+
   const guidelineYear = departments[0]?.guideline_year;
 
   const jsonLd = {
